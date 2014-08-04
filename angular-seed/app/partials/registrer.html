@@ -4,36 +4,36 @@
 	<form>
 		<div class="row">
 			<div class="col-xs-4">
-				Navn <input type="text" class="form-control"> 
+				Navn <input type="text" class="form-control" ng-model="participant.name"> 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				Adresse <input type="text" class="form-control"> 
+				Adresse <input type="text" class="form-control" ng-model="participant.address"> 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				E-post <input type="text" class="form-control"> 
+				E-post <input type="text" class="form-control" ng-model="participant.email"> 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				Telefon <input type="text" class="form-control"> 
+				Telefon <input type="text" class="form-control" ng-model="participant.phonenumber"> 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
 				Kjønn
-				<select class="form-control" id="gender1">
+				<select class="form-control" id="gender1" ng-model="participant.gender">
  					<option>Kvinne</option>
-					 <option>Mann</option>
+					<option>Mann</option>
 				</select>  				
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				Fødselsdato <input type="text" class="form-control" placeholder="dd.mm.yyyy"> 
+				Fødselsdato <input type="text" class="form-control" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth"> 
 			</div>
 		</div>
 		
@@ -71,7 +71,7 @@
 		</div>
 	</form>
 
-	<button class="btn btn-primary btn-xs" ng-click="">Registrer deg</button>
+	<button class="btn btn-primary btn-xs" ng-click="registrerParticipant(participant)">Registrer deg</button>
 </div>
 
 

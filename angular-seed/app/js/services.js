@@ -18,7 +18,6 @@ angular.module('myApp.services', []).
 			//var url = "http://192.168.2.5/bardarregistration/addcourse.php";	
 			var url = "http://localhost/get/getregistrations.php";
 
-
 			$http.post(url, participant).
 				success(function(data){
 					console.log("Registrering OK");
@@ -29,7 +28,16 @@ angular.module('myApp.services', []).
 
 
 		this.getCourses = function() {
-			console.log("Jeg er her");
+			
+			var courses = [];
+
+			var getCoursesUrl = '../../backend/get/getcourses.php';
+
+			$http.get(getCoursesUrl).success(function(data){
+				console.log("testdata: "+data);
+				return data;
+			}).error();
+
 
 			var testData = [{
 					courseId: 1,
@@ -41,22 +49,11 @@ angular.module('myApp.services', []).
 					description: "Dette er et kurs for deg som...."
 				}];
 
-			return testData;
+			//return testData;
 
-			/*
-			var courses = [];
-
-			var getCoursesUrl = 'http://localhost/bardarregistration/getcourses.php';
-
-			$http.get(getCoursesUrl).success(function(data){
-				console.log("testdata: "+data);
-			}).error();
-
-
-
-			return courses;
+			//return courses;
 		
-			*/
+			
 		};
 
 	}).

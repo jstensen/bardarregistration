@@ -6,33 +6,15 @@ angular.module('myApp.controllers', [])
   .controller('Registrer', ['$scope', 'TestService', function($scope, TestService) {
 
 $scope.participant = {}; 
-
-
+$scope.participant.gender = "Kvinne";
 
 $scope.numberOfCourses = 1;
-$scope.hasPartner = {firstChoice: false, secondChoice: false, thirdChoice: false};
 $scope.fillInPartnerId = {firstChoice: false, secondChoice: false, thirdChoice: false};
-
 
 init();
 
-
-
-
 function init() {
 	$scope.courses = TestService.getCourses();
-	$scope.myFirstChoice = $scope.courses[0];
-	$scope.mySecondChoice = $scope.courses[0];
-	$scope.myThirdChoice = $scope.courses[0];
-
-
-
-	$scope.firstChoiceCourse = {courseId: $scope.courses[0].courseId, priority: 1, hasPartner: false};
-//	$scope.participant.firstChoiceCourse = $scope.courses[0];
-
-
-
-	$scope.secondChoiceCourse = {courseId: null, priority: 2, role:"", hasPartner: "", partnerName:""};
 }
 
 
@@ -43,6 +25,7 @@ $scope.registrerParticipant = function(participant) {
 	console.log(participant.phonenumber);
 	console.log(participant.gender);
 	console.log(participant.dateofbirth);
+	console.log($scope.firstChoiceCourse.role);
 
 
 	console.log("$scope.firstChoiceCourse.courseId: "+$scope.firstChoiceCourse.courseId);
@@ -50,7 +33,7 @@ $scope.registrerParticipant = function(participant) {
 	console.log("$scope.firstChoiceCourse.partnerName: "+$scope.firstChoiceCourse.partnerName);
 
 
-	$scope.participant.courses = {};
+	$scope.participant.courses = [];
 	//var participantChoiceOfCourses = [{courseId: XXX, priority: XXX, hasPartner: XXX, partnerName: XXX, role: XXX, },{},{}];
 
 	$scope.participant.courses[0] = $scope.firstChoiceCourse;
@@ -61,7 +44,7 @@ $scope.registrerParticipant = function(participant) {
 //		$scope.participant.courses[2] = $scope.thirdChoiceCourse;
 //	}
 
-	TestService.registrerParticipant();
+	TestService.registrerParticipant($scope.participant);
 };
 
 $scope.updateHasPartnerFirstChoice = function() {
@@ -77,9 +60,7 @@ $scope.updateHasPartnerThirdChoice = function() {
 };
 
 $scope.addOneMoreCourse = function() {
-	console.log("inne her: "+$scope.numberOfCourses);
 	$scope.numberOfCourses++;
-	console.log("inne her: "+$scope.numberOfCourses);
 };
 
   	

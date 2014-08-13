@@ -10,17 +10,21 @@ angular.module('myApp.services', []).
 		//something here
 		this.registrerParticipant = function(participant) {
 
-			var test = {"data": "Stringen min"};
+			var test = {courseId: 1};
 
 
 			//var participant = {name:"", address:"",+++ courses: [{courseId:"", hasPartner:true, partnerId:"", priority:"", role:""},{},{}];
 
-			var url = "http://192.168.2.5/bardarregistration/addcourse.php";
+			//var url = "http://192.168.2.5/bardarregistration/addcourse.php";	
+			var url = "http://localhost/get/getregistrations.php";
 
-			$http.post(url, test);
+
+			$http.post(url, participant).
+				success(function(data){
+					console.log("Registrering OK");
+				});
 
 
-			console.log("Hepp");
 		};
 
 

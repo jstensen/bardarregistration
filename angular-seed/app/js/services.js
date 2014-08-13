@@ -10,19 +10,50 @@ angular.module('myApp.services', []).
 		//something here
 		this.registrerParticipant = function(participant) {
 
-			var test = {name: "4",
-						description: "Testkurs fra Julianne",
-						capacity: 6, 
-						maxUnbalance: 2, 
-						status: "Open"};
+			var test = {"data": "Stringen min"};
 
-			$http.post("http://192.168.2.3/bardarregistration/addcourse.php", test);
+
+			//var participant = {name:"", address:"",+++ courses: [{courseId:"", hasPartner:true, partnerId:"", priority:"", role:""},{},{}];
+
+			var url = "http://192.168.2.5/bardarregistration/addcourse.php";
+
+			$http.post(url, test);
 
 
 			console.log("Hepp");
 		};
 
 
+		this.getCourses = function() {
+			console.log("Jeg er her");
+
+			var testData = [{
+					courseId: 1,
+					name: "Lindy 1",
+					description: "Dette er et kurs for deg som...."
+				}, {
+					courseId: 2,
+					name: "Lindy 2",
+					description: "Dette er et kurs for deg som...."
+				}];
+
+			return testData;
+
+			/*
+			var courses = [];
+
+			var getCoursesUrl = 'http://localhost/bardarregistration/getcourses.php';
+
+			$http.get(getCoursesUrl).success(function(data){
+				console.log("testdata: "+data);
+			}).error();
+
+
+
+			return courses;
+		
+			*/
+		};
 
 	}).
 	

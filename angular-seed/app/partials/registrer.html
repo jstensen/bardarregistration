@@ -1,6 +1,11 @@
 
 <div class="well">
 	<h1>Kurspåmelding</h1>
+	<div class="alert alert-success col-xs-4" role="alert">Legg noe passende informasjon her. Pris, oppstart osv?</div>
+	<br>
+	<br>
+	<br>
+	<br>
 	<form>
 		<div class="row">
 			<div class="col-xs-4">
@@ -33,7 +38,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				Fødselsdato <input type="text" class="form-control" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth"> 
+				Fødselsdato <input type="date" class="form-control" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth"> 
 			</div>
 		</div>
 		
@@ -42,36 +47,92 @@
 
 		<div class="row">
 			<div class="col-xs-2">
-				Velg kurs
-				<select class="form-control">
-					<option>Øvet</option>
-					<option>Nybegynner</option>
-				</select>
+				Velg kurs (1. prioritet)
+				<select class="form-control" ng-model="myFirstChoice" ng-options="course.name for course in courses"></select>
 			</div>	
 			<div class="col-xs-2">
-				Velg rolle <i class="glyphicon glyphicon-question-sign"></i>
+				Velg rolle
 				<select class="form-control">
 					<option>Lead</option>
 					<option>Follow</option>
 				</select>
 			</div>
 			<div class="col-xs-2">
-				Har partner?
-				<button type="radio"></button>
+				Registrere med partner? <br>
+				Ja <input type="radio" ng-model="hasPartner.firstChoice" ng-value="true" ng-change="updateHasPartnerFirstChoice()"></input>
+				Nei <input type="radio" ng-model="hasPartner.firstChoice" ng-value="false" ng-change="updateHasPartnerFirstChoice()"></input>
+			</div>
+			<div class="col-xs-2" ng-show="fillInPartnerId.firstChoice">
+				Fyll inn partnerID <br>
+				<input type="text" class="form-control"></input>
 			</div>
 		</div>
-		<br>
-		<div class="row">
+
+		<div class="row" ng-show="numberOfCourses>1">
 			<div class="col-xs-2">
-				Legg til kurs
-				<button class="btn btn-success btn-xs">
+				Velg kurs (2. prioritet)
+				<select class="form-control">
+					<option>Øvet</option>
+					<option>Nybegynner</option>
+				</select>
+			</div>	
+			<div class="col-xs-2">
+				Velg rolle
+				<select class="form-control">
+					<option>Lead</option>
+					<option>Follow</option>
+				</select>
+			</div>
+			<div class="col-xs-2">
+				Registrere med partner? <br>
+				Ja <input type="radio" ng-model="hasPartner.secondChoice" ng-value="true" ng-change="updateHasPartnerSecondChoice()"></input>
+				Nei <input type="radio" ng-model="hasPartner.secondChoice" ng-value="false" ng-change="updateHasPartnerSecondChoice()"></input>
+			</div>
+			<div class="col-xs-2" ng-show="fillInPartnerId.secondChoice">
+				Fyll inn partnerID <br>
+				<input type="text" class="form-control"></input>
+			</div>
+		</div>
+
+		<div class="row" ng-show="numberOfCourses>2">
+			<div class="col-xs-2">
+				Velg kurs (3. prioritet)
+				<select class="form-control">
+					<option>Øvet</option>
+					<option>Nybegynner</option>
+				</select>
+			</div>	
+			<div class="col-xs-2">
+				Velg rolle
+				<select class="form-control">
+					<option>Lead</option>
+					<option>Follow</option>
+				</select>
+			</div>
+			<div class="col-xs-2">
+				Registrere med partner? <br>
+				Ja <input type="radio" ng-model="hasPartner.thirdChoice" ng-value="true" ng-change="updateHasPartnerThirdChoice()"></input>
+				Nei <input type="radio" ng-model="hasPartner.thirdChoice" ng-value="false" ng-change="updateHasPartnerThirdChoice()"></input>
+			</div>
+			<div class="col-xs-2" ng-show="fillInPartnerId.thirdChoice">
+				Fyll inn partnerID <br>
+				<input type="text" class="form-control"></input>
+			</div>
+		</div>
+
+		<br>
+		<div class="row" ng-hide="numberOfCourses==3">
+			<div class="col-xs-2">
+				Legg til flere kurs
+				<button class="btn btn-success btn-xs" ng-click="addOneMoreCourse()">
 					<i class="glyphicon glyphicon-plus"></i>
 				</button>
 			</div>
 		</div>
 	</form>
-
-	<button class="btn btn-primary btn-xs" ng-click="registrerParticipant(participant)">Registrer deg</button>
+	<br>
+	<br>
+	<button class="btn btn-primary btn-sm" ng-click="registrerParticipant(participant)">Registrer deg</button>
 </div>
 
 

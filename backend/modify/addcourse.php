@@ -2,7 +2,7 @@
 /// Adding new or editing existing course
 /// Inputs: string name, string description, int capacity, int maxUnbalance, int id
 /// To add new course, id must be 0. To edit existing course, id = id of course to edit
-require_once("config.php");
+require_once("../config.php");
 checkLogin();
 if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	echo 'Missing data';

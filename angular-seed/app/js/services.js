@@ -9,14 +9,7 @@ angular.module('myApp.services', []).
 	service('TestService', function($http) {
 		//something here
 		this.registrerParticipant = function(participant) {
-
-			var test = {courseId: 1};
-
-
-			//var participant = {name:"", address:"",+++ courses: [{courseId:"", hasPartner:true, partnerId:"", priority:"", role:""},{},{}];
-
-			//var url = "http://192.168.2.5/bardarregistration/addcourse.php";	
-			var url = "http://localhost/get/getregistrations.php";
+			var url = "../../backend/modify/register.php";
 
 			$http.post(url, participant).
 				success(function(data){
@@ -29,8 +22,6 @@ angular.module('myApp.services', []).
 
 		this.getCourses = function() {
 			
-			var courses = [];
-
 			var getCoursesUrl = '../../backend/get/getcourses.php';
 
 			$http.get(getCoursesUrl).success(function(data){
@@ -40,20 +31,15 @@ angular.module('myApp.services', []).
 
 
 			var testData = [{
-					courseId: 1,
+					id: 1,
 					name: "Lindy 1",
 					description: "Dette er et kurs for deg som...."
 				}, {
-					courseId: 2,
+					id: 2,
 					name: "Lindy 2",
 					description: "Dette er et kurs for deg som...."
 				}];
-
-			//return testData;
-
-			//return courses;
-		
-			
+			return testData;			
 		};
 
 	}).

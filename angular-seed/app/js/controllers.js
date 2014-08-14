@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('Registrer', ['$scope', 'TestService', function($scope, TestService) {
+  .controller('Registrer', ['$scope', 'TestService', '$http', function($scope, TestService, $http) {
 
 $scope.participant = {}; 
 $scope.participant.gender = "Kvinne";
@@ -11,11 +11,28 @@ $scope.participant.gender = "Kvinne";
 $scope.numberOfCourses = 1;
 $scope.fillInPartnerId = {firstChoice: false, secondChoice: false, thirdChoice: false};
 
-init();
 
-function init() {
-	$scope.courses = TestService.getCourses();
-}
+//var testData = [{
+//					id: 1,
+//					name: "Lindy 1",
+//					description: "Dette er et kurs for deg som...."
+//				}, {
+//					id: 2,
+//					name: "Lindy 2",
+//					description: "Dette er et kurs for deg som...."
+//				}];
+
+//$scope.courses = testData;
+
+var getCoursesUrl = '../../backend/get/getcourses.php';
+
+$http.get(getCoursesUrl).success(function(data){
+	$scope.courses = data;
+
+	$scope.firstChoiceCourse = {courseId: $scope.courses[0].id, priority:"1", role:"Follow", partnerName:"", hasPartner: false};
+	$scope.secondChoiceCourse = {courseId: $scope.courses[0].id, priority:"2", role:"Follow", partnerName:"", hasPartner: false};
+	$scope.thirdChoiceCourse = {courseId: $scope.courses[0].id, priority:"3", role:"Follow", partnerName:"", hasPartner: false};
+}).error();
 
 
 $scope.registrerParticipant = function(participant) {
@@ -34,15 +51,10 @@ $scope.registrerParticipant = function(participant) {
 
 
 	$scope.participant.courses = [];
-	//var participantChoiceOfCourses = [{courseId: XXX, priority: XXX, hasPartner: XXX, partnerName: XXX, role: XXX, },{},{}];
 
 	$scope.participant.courses[0] = $scope.firstChoiceCourse;
-//	if($scope.secondChoiceCourse.courseId !=== null) {
-//		$scope.participant.courses[1] = $scope.secondChoiceCourse;
-//	}
-//	if($scope.thirdChoiceCourse.courseId !=== null) {
-//		$scope.participant.courses[2] = $scope.thirdChoiceCourse;
-//	}
+	$scope.participant.courses[1] = $scope.secondChoiceCourse;
+	$scope.participant.courses[2] = $scope.thirdChoiceCourse;
 
 	TestService.registrerParticipant($scope.participant);
 };

@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	echo "Missing data";
 }else{
 	$data=json_decode(file_get_contents('php://input'), true);
-	var_dump($data);
 	if(true){//isset($data['name'])){
 		$name = mysqli_real_escape_string($con, $data['name']);
 		$address = mysqli_real_escape_string($con, $data['address']);
@@ -51,7 +50,7 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 		$courseId = mysqli_real_escape_string($con,$course['courseId']);
 		$role = mysqli_real_escape_string($con,$course['role']);
 		if(mysqli_real_escape_string($con,$course['hasPartner'])){
-			$partnerName = mysqli_real_escape_string($con,$course['partnername']);
+			$partnerName = mysqli_real_escape_string($con,$course['partnerName']);
 		}else{
 			$partnerName = "";
 		}
@@ -68,17 +67,17 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName from Course c, Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
 		$message = 'Registration received for
-		';
+	';
 		while($row = mysqli_fetch_array($result)) {
 			if(strlen($row['partnerName'])>0){
-				$partnerName = " ".$row['personName'];
+				$partnerMessage= " ". $row['partnerName'] . ' as partner';
 			}else{
-				$partnerName = "out partner";
+				$partnerMessage = "out partner";
 			}
-			$message = $message. '- ' . $row['courseName'] . " as " . $row['role'] . " with" . $partnerName . ' as partner
-			';
+			$message = $message. '- ' . $row['courseName'] . " as " . $row['role']. " with" .$partnerMessage.'
+	';
 		}
-		email($eMail, "Course registration received", $message);
+		echo email($eMail, "Course registration received", $message);
 	}else exit("Could not find course. ".mysqli_error($con)."<br />");
 }
 mysqli_close($con);

@@ -8,18 +8,9 @@
 angular.module('myApp.services', []).
 	service('TestService', function($http) {
 		//something here
-		this.registrerParticipant = function(participant) {
-
-			var test = {courseId: 1};
-
-
-			//var participant = {name:"", address:"",+++ courses: [{courseId:"", hasPartner:true, partnerId:"", priority:"", role:""},{},{}];
-
-			//var url = "http://192.168.2.5/bardarregistration/addcourse.php";	
-			var url = "http://localhost/get/getregistrations.php";
-
-
-			$http.post(url, participant).
+		this.addCourse = function(course) {	
+			var url = "../../backend/modify/addcourse.php";
+			$http.post(url, course).
 				success(function(data){
 					console.log("Registrering OK");
 				});
@@ -29,34 +20,16 @@ angular.module('myApp.services', []).
 
 
 		this.getCourses = function() {
-			console.log("Jeg er her");
+			
+			var getCoursesUrl = '../../backend/get/getcourses.php';
 
-			var testData = [{
-					courseId: 1,
-					name: "Lindy 1",
-					description: "Dette er et kurs for deg som...."
-				}, {
-					courseId: 2,
-					name: "Lindy 2",
-					description: "Dette er et kurs for deg som...."
-				}];
-
-			return testData;
-
-			/*
-			var courses = [];
-
-			var getCoursesUrl = 'http://localhost/bardarregistration/getcourses.php';
-
-			$http.get(getCoursesUrl).success(function(data){
-				console.log("testdata: "+data);
-			}).error();
-
-
-
-			return courses;
-		
-			*/
+			$http.get(getCoursesUrl).
+				success(function(data){
+					console.log("Data: "+data);
+					console.log(data.length);
+					return data;
+				})
+				.error(function(data){console.log("Fy og fy, noko gjekk gale!");});			
 		};
 
 	}).

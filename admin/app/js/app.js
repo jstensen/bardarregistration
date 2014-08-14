@@ -11,7 +11,9 @@ angular.module('myApp', [
   'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/registrer', {templateUrl: 'partials/registrer.html', controller: 'Registrer'});
+  $routeProvider.when('/kurs', {templateUrl: 'partials/kurs.html', controller: 'Kurs'});
+  $routeProvider.when('/kursdetaljer', {templateUrl: 'partials/kurs.html', controller: 'Kursdetaljer'});
+  $routeProvider.when('/registreringer', {templateUrl: 'partials/kurs.html', controller: 'Registreringer'});
   $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/kurs'});
 }]);

@@ -3,46 +3,43 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('Registrer', ['$scope', 'TestService', function($scope, TestService) {
+  .controller('Kurs', ['$scope', 'TestService', '$http', function($scope, TestService, $http) {
 
-$scope.participant = {}; 
+var getCoursesUrl = '../../backend/get/getcourses.php';
 
+$http.get(getCoursesUrl).
+	success(function(data){
+		console.log("testdata: "+data);
+		console.log(data.length);
+		$scope.courses=data;
+	})
+	.error(function(data){console.log("Fy og fy, noko gjekk gale!");});
 
+$scope.manage = function(id){
+	console.log(id);
 
-$scope.numberOfCourses = 1;
-$scope.hasPartner = {firstChoice: false, secondChoice: false, thirdChoice: false};
-$scope.fillInPartnerId = {firstChoice: false, secondChoice: false, thirdChoice: false};
-
-
-init();
-
-
-
-
-function init() {
-	$scope.courses = TestService.getCourses();
-	$scope.myFirstChoice = $scope.courses[0];
-	$scope.mySecondChoice = $scope.courses[0];
-	$scope.myThirdChoice = $scope.courses[0];
-
-
-
-	$scope.firstChoiceCourse = {courseId: $scope.courses[0].courseId, priority: 1, hasPartner: false};
-//	$scope.participant.firstChoiceCourse = $scope.courses[0];
-
-
-
-	$scope.secondChoiceCourse = {courseId: null, priority: 2, role:"", hasPartner: "", partnerName:""};
+			$http.get('../../backend/get/getcourses.php').
+				success(function(data){
+					console.log("Data: "+data);
+					console.log(data.length);
+					return data;
+				})
+				.error(function(data){console.log("Fy og fy, noko gjekk gale!");});		
+}
+$scope.edit = function(id){
+	console.log(id);
+}
+$scope.deletecourse = function(id){
+	console.log(id);
 }
 
-
-$scope.registrerParticipant = function(participant) {
-	console.log(participant.name);
-	console.log(participant.address);
-	console.log(participant.email);
-	console.log(participant.phonenumber);
-	console.log(participant.gender);
-	console.log(participant.dateofbirth);
+$scope.addcourse = function(course) {
+	console.log(course.name);
+	console.log(course.description);
+	console.log(course.capacity);
+	console.log(course.maxunbalance);
+	console.log(course.status);
+	console.log(course.solo);
 
 
 	console.log("$scope.firstChoiceCourse.courseId: "+$scope.firstChoiceCourse.courseId);

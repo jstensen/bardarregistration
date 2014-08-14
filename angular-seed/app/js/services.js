@@ -39,7 +39,11 @@ angular.module('myApp.services', []).
 					name: "Lindy 2",
 					description: "Dette er et kurs for deg som...."
 				}];
+<<<<<<< HEAD
+			//return testData;			
+=======
 			return testData;			
+>>>>>>> e53cd1e30748adf757e8eecdd717ad044c4e8369
 		};
 
 	}).

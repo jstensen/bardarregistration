@@ -1,0 +1,57 @@
+
+<div class="well">
+	<h1>Legg til kurs</h1>
+	<div class="alert alert-success col-xs-4" role="alert">Legg noe passende informasjon her. Pris, oppstart osv?</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<form>
+		<div class="row">
+			<div class="col-xs-4">
+				Navn <input type="text" class="form-control" ng-model="course.name"> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Beskrivelse <input type="textarea" class="form-control" ng-model="course.description"> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Kapasitet <input type="text" class="form-control" ng-model="course.capacity"> (maks antall av hver rolle)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Maks ubalanse <input type="text" class="form-control" ng-model="course.maxUnbalance"> (maks overskudd av den ene rollen)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Status
+				<select class="form-control" id="gender1" ng-model="course.status">
+ 					<option>Open</option>
+					<option>Closed</option>
+					<option>Waitinglist</option>
+				</select>  				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Solo? <input type="checkbox" class="form-control" ng-model="course.solo"> 
+			</div>
+		</div>
+		
+		<br>
+		<br>
+	</form>
+	<br>
+	<br>
+	<button class="btn btn-primary btn-sm" ng-click="addcourse(course)">Legg til kurs</button>
+</div>
+
+
+
+
+

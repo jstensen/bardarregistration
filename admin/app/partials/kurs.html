@@ -1,0 +1,24 @@
+
+<div class="well">
+	<h1>Kurs-administrasjon</h1>
+	<div class="alert alert-success col-xs-4" role="alert">Legg noe passende informasjon her. Pris, oppstart osv?</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table>
+		<tr ng-repeat="course in courses">
+		<td>{{course.name }}</td>
+		<td><button class="btn btn-primary btn-sm" ng-click="manage(course.id)">Administrer</button></td>
+		<td><button class="btn btn-primary btn-sm" ng-click="edit(course.id)">Endre</button></td>
+		<td><button class="btn btn-primary btn-sm" ng-click="deletecourse(course.id)">Slett</button></td>
+		</tr>
+	</table>
+	<br>
+	<br>
+</div>
+
+
+
+
+

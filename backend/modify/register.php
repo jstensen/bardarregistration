@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$address = mysqli_real_escape_string($con, $_POST['address']);
 		$eMail = mysqli_real_escape_string($con, $_POST['eMail']);
 		$phone = mysqli_real_escape_string($con, $_POST['phone']);
-		$gender = mysqli_real_escape_string($con, $_POST['gender']);
+		$gender = gender(mysqli_real_escape_string($con, $_POST['gender']));
 		$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateOfBirth']);
 		$courseIdArray = $_POST['course'];
 		$roleArray = $_POST['role'];

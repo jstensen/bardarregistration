@@ -2,6 +2,7 @@
 $root = "http://localhost/bardarregistration/";
 
 function addMenu(){
+	global $root;
 	echo '<a href="'.$root.'admin_php/managecourses.php">Administrer kurs</a>&nbsp&nbsp';
 	echo '<a href="'.$root.'admin_php/addcourse_input.php">Legg til nytt kurs</a>&nbsp&nbsp';
 	echo '<a href="'.$root.'admin_php/managepersons.php">Administrer personer</a>&nbsp&nbsp';
@@ -54,4 +55,17 @@ function email($receiveraddress, $subject, $message){
 	$mail->Body    = $message;
 	if($mail->send()) return true; else return "Message could not be sent. Mailer Error: " . $mail->ErrorInfo;
 }
+function gender($genderIn){
+	switch($genderIn){
+		case 'Male':
+		case 'male':
+		case 'Mann':
+		case 'mann':
+		case 'Gutt':
+		case 'gutt':
+			return 'male';
+	}
+	return 'female';
+}
+
 ?>

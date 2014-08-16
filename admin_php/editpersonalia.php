@@ -27,7 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$address = $personalia['address'];
 		$eMail = $personalia['eMail'];
 		$phone = $personalia['phone'];
-		$gender = $personalia['gender'];
+		$gender = 
+		$gender=gender($personalia['gender']);
+			
 		$checked = array_fill_keys(array('male', 'female'), '');
 		$checked[$gender] = ' checked="checked"';
 		$dateOfBirth = $personalia['dateOfBirth'];

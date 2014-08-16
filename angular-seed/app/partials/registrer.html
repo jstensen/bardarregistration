@@ -1,32 +1,51 @@
 
 <div class="well">
 	<h1>Kurspåmelding</h1>
-	<div class="alert alert-success col-xs-4" role="alert">Legg noe passende informasjon her. Pris, oppstart osv?</div>
-	<br>
-	<br>
-	<br>
-	<br>
-	<form>
+	<div class="row">
+		<div class="alert alert-success col-xs-5" role="alert">
+			Legg noe passende informasjon her. Pris, oppstart osv?Legg noe passende informasjon her. Pris, oppstart osv?Legg noe passende informasjon 	her. Pris, oppstart osv?Legg noe passende informasjon her. Pris, oppstart osv?Legg noe passende informasjon her. Pris, oppstart osv?
+		</div>
+	</div>
+
+	
+	<form name="form">
 		<div class="row">
 			<div class="col-xs-4">
-				Navn <input type="text" class="form-control" ng-model="participant.name"> 
+				Navn <input type="text" class="form-control" name="name" ng-model="participant.name" required ng-blur="navnOk = form.name.$valid">
+				<span ng-show="navnOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!navnOk && navnOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				Adresse <input type="text" class="form-control" name="address" ng-model="participant.address" ng-blur="addressOk = form.address.$valid" required> 
+				<span ng-show="addressOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!addressOk && addressOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				Adresse <input type="text" class="form-control" ng-model="participant.address"> 
+				E-post <input type="text" class="form-control" name="email" ng-model="participant.email" ng-blur="emailOk = form.email.$valid"required>
+				<span ng-show="emailOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!emailOk && emailOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				E-post <input type="text" class="form-control" ng-model="participant.email"> 
+				Telefon <input type="text" class="form-control" name="phone" ng-model="participant.phonenumber" ng-blur="phoneOk = form.phone.$valid" required> 
+				<span ng-show="phoneOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!phoneOk && phoneOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-xs-4">
-				Telefon <input type="text" class="form-control" ng-model="participant.phonenumber"> 
+				Fødselsdato <input type="date" class="form-control" name="dateofbirth" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth" ng-blur="dateOk = form.dateofbirth.$valid" required>
+				<span ng-show="dateOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!dateOk && dateOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-xs-4">
 				Kjønn
@@ -36,11 +55,7 @@
 				</select>  				
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">
-				Fødselsdato <input type="date" class="form-control" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth"> 
-			</div>
-		</div>
+		
 		
 		<br>
 		<br>
@@ -68,6 +83,9 @@
 				<input type="text" class="form-control" ng-model="Course[i].partnerName"></input>
 			</div>
 		</div>
+
+
+
 		<!--
 		<div class="row">
 			<div class="col-xs-2">
@@ -149,7 +167,7 @@
 		<div class="row" ng-hide="numberOfCourses==1">
 			<div class="col-xs-2">
 				Fjern kurs nummer {{numberOfCourses}}
-				<button class="btn btn-success btn-xs" ng-click="removeOneCourse()">
+				<button class="btn btn-danger btn-xs" ng-click="removeOneCourse()">
 					<i class="glyphicon glyphicon-minus"></i>
 				</button>
 			</div>
@@ -157,7 +175,8 @@
 	</form>
 	<br>
 	<br>
-	<button class="btn btn-primary btn-sm" ng-click="registrerParticipant(participant)">Registrer deg</button>
+	{{form.$invalid}}
+	<button ng-disabled="form.$invalid" class="btn btn-primary btn-sm" ng-click="registrerParticipant(participant)">Registrer deg</button>
 </div>
 
 

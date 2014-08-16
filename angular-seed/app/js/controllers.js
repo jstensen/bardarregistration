@@ -13,19 +13,6 @@ $scope.fillInPartnerId = [false, false, false];
 
 $scope.maxNumberOfCourses = 3;
 
-
-//var testData = [{
-//					id: 1,
-//					name: "Lindy 1",
-//					description: "Dette er et kurs for deg som...."
-//				}, {
-//					id: 2,
-//					name: "Lindy 2",
-//					description: "Dette er et kurs for deg som...."
-//				}];
-
-//$scope.courses = testData;
-
 var getCoursesUrl = '../../backend/get/getcourses.php';
 
 $http.get(getCoursesUrl).success(function(data){
@@ -35,26 +22,11 @@ $http.get(getCoursesUrl).success(function(data){
 	for (var $j = 0; $j < $scope.maxNumberOfCourses; $j++) { 
 		$scope.Course[$j] = {courseId: $scope.courses[0].id, priority:$j+1, role:"Follow", partnerName:"", hasPartner: false};
 	}
-	//$scope.Course[0] = {courseId: $scope.courses[0].id, priority:"1", role:"Follow", partnerName:"", hasPartner: false};
-	//$scope.Course[1] = {courseId: $scope.courses[0].id, priority:"2", role:"Follow", partnerName:"", hasPartner: false};
-	//$scope.Course[2] = {courseId: $scope.courses[0].id, priority:"3", role:"Follow", partnerName:"", hasPartner: false};
+
 }).error();
 
 
-//init();
-
-//function init() {
-//	$scope.courses = TestService.getCourses();
-//}
-
-
 $scope.registrerParticipant = function(participant) {
-	console.log(participant.name);
-	console.log(participant.address);
-	console.log(participant.email);
-	console.log(participant.phonenumber);
-	console.log(participant.gender);
-	console.log(participant.dateofbirth);
 
 	$scope.participant.courses = [];
 	for(var i=0; i<$scope.numberOfCourses; i++){

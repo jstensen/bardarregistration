@@ -2,7 +2,7 @@
 /// Get information about all courses
 /// Inputs: no
 /// Results: int id, string name, string description, int capacity, int maxUnbalance, status
-require_once("..\config.php");
+require_once("../config.php");
 //checkLogin();
 
 //Connect to database

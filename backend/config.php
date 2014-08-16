@@ -1,14 +1,15 @@
 <?php
 $root = "http://localhost/bardarregistration/";
 
-echo '<a href="'.$root.'admin_php/managecourses.php">Administrer kurs</a>&nbsp&nbsp';
-echo '<a href="'.$root.'admin_php/addcourse_input.php">Legg til nytt kurs</a>&nbsp&nbsp';
-echo '<a href="'.$root.'admin_php/managepersons.php">Administrer personer</a>&nbsp&nbsp';
-echo '<a href="'.$root.'angular-seed/app/#/registrer">Påmeldingsskjema</a>&nbsp&nbsp';
-echo '<a href="'.$root.'admin_php/logout.php">Logg ut</a>';
-echo '<br />';
-
-
+function addMenu(){
+	echo '<a href="'.$root.'admin_php/managecourses.php">Administrer kurs</a>&nbsp&nbsp';
+	echo '<a href="'.$root.'admin_php/addcourse_input.php">Legg til nytt kurs</a>&nbsp&nbsp';
+	echo '<a href="'.$root.'admin_php/managepersons.php">Administrer personer</a>&nbsp&nbsp';
+	echo '<a href="'.$root.'angular-seed/app/#/registrer">Påmeldingsskjema</a>&nbsp&nbsp';
+	echo '<a href="'.$root.'admin_php/logout.php">Logg ut</a>';
+	echo '<br />';
+	return true;
+}
 
 function checkLogin(){
 	session_start();
@@ -17,6 +18,7 @@ function checkLogin(){
 		http_response_code(402);
 		exit("Not logged in.<br /><a href=../admin_php/login.php>Log in</a>");
 	}
+	addMenu();
 	return true;
 }
 

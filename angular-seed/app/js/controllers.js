@@ -5,6 +5,7 @@
 angular.module('myApp.controllers', [])
   .controller('Registrer', ['$scope', 'TestService', '$http', function($scope, TestService, $http) {
 
+$scope.showfeedback = false;
 $scope.participant = {}; 
 $scope.participant.gender = "Kvinne";
 
@@ -30,11 +31,25 @@ $scope.registrerParticipant = function(participant) {
 
 	$scope.participant.courses = [];
 	for(var i=0; i<$scope.numberOfCourses; i++){
-		console.log("$scope.Course[i].courseId: "+$scope.Course[i].courseId);
 		$scope.participant.courses[i] = $scope.Course[i];
 	}
 
-	TestService.registrerParticipant($scope.participant);
+	var url = "../../backend/modify/register.php";
+
+
+	$http.post(url, participant).
+		success(function(data){
+			$scope.showfeedback = true;
+			$scope.feedback = data;
+
+		}).
+		error(function(data){
+			$scope.showfeedback = true;
+			$scope.feedback = data;
+	});
+
+
+	//TestService.registrerParticipant($scope.participant);
 };
 
 $scope.updateHasPartner = function(i) {

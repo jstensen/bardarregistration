@@ -41,11 +41,13 @@ $scope.registrerParticipant = function(participant) {
 		success(function(data){
 			$scope.showfeedback = true;
 			$scope.feedback = data;
+			$scope.enFeilHarSkjedd = false;
 
 		}).
 		error(function(data){
 			$scope.showfeedback = true;
 			$scope.feedback = data;
+			$scope.enFeilHarSkjedd = true;
 	});
 
 

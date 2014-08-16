@@ -23,19 +23,37 @@ function checkLogin(){
 	return true;
 }
 
+$dbprefix="bardarregistration_";
 function connectToDb(){
-    $con=mysqli_connect("localhost","root","","Registrations");
-	mysqli_set_charset($con, "utf8");
-	// Check connection
+	$hostname='bardarswingclub2.mysql.domeneshop.no';//'bardarswingc.mysql.domeneshop.no';//
+	$username='bardarswingclub2';//'bardarswingc';//
+	$password='gMZmdC6M';//'khDzxPA';//
+	$database='bardarswingclub2';//'bardarswingc';//
+	$con=mysqli_connect($hostname,$username,$password,$database);
+	//$con=mysqli_connect("localhost","root","",$database);
 	if (mysqli_connect_errno()) {
-	  exit("Failed to connect to MySQL: " . mysqli_connect_error() . "<br />");
+	  exit("Failed to connect to ".$database.": ". mysqli_connect_error() . "<br />");
+	}
+    //$con=mysqli_connect("localhost","root","","Registrations");
+	//mysqli_set_charset($con, "utf8");
+	// Check connection
+	//if (mysqli_connect_errno()) {
+	//  exit("Failed to connect to MySQL: " . mysqli_connect_error() . "<br />");
+	//}
+    return $con;
+}
+function connectToSQL(){
+	$hostname='bardarswingclub2.mysql.domeneshop.no';//'bardarswingc.mysql.domeneshop.no';//
+	$username='bardarswingclub2';//'bardarswingc';//
+	$password='gMZmdC6M';//'khDzxPA';//
+	$con=mysqli_connect($hostname,$username,$password);
+	if (mysqli_connect_errno()) {
+	  exit("Failed to connect to ".$database.": ". mysqli_connect_error() . "<br />");
 	}
     return $con;
 }
 
 require 'PHPMailer-master/PHPMailerAutoload.php';
-     
-
 function email($receiveraddress, $subject, $message){
 	$mail = new PHPMailer;
 	$mail->isSMTP();
@@ -43,8 +61,8 @@ function email($receiveraddress, $subject, $message){
 	$mail->SMTPSecure = "ssl";
 	$mail->Host       = "smtp.gmail.com"; 
 	$mail->Port       = 465;
-	//$mail->Username = 'bardarswingclub@gmail.com';                 // SMTP username
-	$mail->Username = 'erik.lien.johnsen@gmail.com';
+	//$mail->Username = 'bardarswingclub@gmail.com';	// SMTP username
+	$mail->Username = 'erik.lien.johnsen@gmail.com';	// SMTP username
 	$mail->Password = 'aSdFgHjK';  
 	
 	$mail->From = 'bardarswingclub@gmail.com';

@@ -20,19 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$registrationobjects=array();
 	foreach($roles as $role){
 		$registrationobject=array();
-		$result=mysqli_query($con,"Select count(*) from registration where role='".$role."' and courseId=" . $id . " and accepted=TRUE");
+		$result=mysqli_query($con,"Select count(*) from ".$dbprefix."Registration where role='".$role."' and courseId=" . $id . " and accepted=TRUE");
 		if($result){
 			$row = mysqli_fetch_row($result);
 			$registrationobject['n_accepted']=$row[0];
 		}else exit("Error finding registrations: " . mysqli_error($con));
 		
-		$result=mysqli_query($con,"Select count(*) from registration where role='".$role."' and courseId=" . $id . " and accepted=FALSE");
+		$result=mysqli_query($con,"Select count(*) from ".$dbprefix."Registration where role='".$role."' and courseId=" . $id . " and accepted=FALSE");
 		if($result){
 			$row = mysqli_fetch_row($result);
 			$registrationobject['n_waiting'] = $row[0];
 		}else exit("Error finding registrations: " . mysqli_error($con));
 		
-		$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName from registration r, person p, course c where personId=p.id and role='".$role."' and courseId=" . $id . " and c.id=courseId order by priority, registrationTime");
+		$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and role='".$role."' and courseId=" . $id . " and c.id=courseId order by accepted desc, priority, registrationTime");
 		if($result){
 			$registrations=array();
 			while($row = mysqli_fetch_array($result)) {

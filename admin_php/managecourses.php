@@ -6,7 +6,7 @@ require_once("../backend/config.php");
 checkLogin();
 $con=connectToDb();
 if ($_SERVER["REQUEST_METHOD"] <> "POST"){
-	$result=mysqli_query($con, 'SELECT id, name, description, capacity, maxUnbalance, status from Course order by name');
+	$result=mysqli_query($con, 'SELECT id, name, description, capacity, maxUnbalance, status from '.$dbprefix.'Course order by name');
 	if($result){
 		echo '<h1>Manage courses</h1>';
 		echo '<table>';
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 }else{
 	$courseId = mysqli_real_escape_string($con, $_POST['courseId']);
 	
-	$courseInfo=mysqli_fetch_array(mysqli_query($con, 'SELECT name, description, capacity, maxUnbalance, status, solo from Course where id =' . $courseId));
+	$courseInfo=mysqli_fetch_array(mysqli_query($con, 'SELECT name, description, capacity, maxUnbalance, status, solo from '.$dbprefix.'Course where id =' . $courseId));
 
 	$name = $courseInfo['name'];
 	$description = $courseInfo['description'];

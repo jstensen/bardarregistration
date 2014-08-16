@@ -31,18 +31,19 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$roleArray = $_POST['role'];
 		$partnerIdArray = $_POST['partnerId'];
 	}
-	$existingPerson = mysqli_query($con,'SELECT id FROM Person where eMail="'.$eMail.'"' );
+	$existingPerson = mysqli_query($con,'SELECT id FROM '.$dbprefix.'Person where eMail="'.$eMail.'"' );
 	if(mysqli_num_rows($existingPerson)>0){
-		echo exit("Error: Person with that e-mail address already registered. Contact us to change your registration.<br />");
+		http_response_code(400);
+		exit("Error: Person with that e-mail address already registered. Contact us to change your registration.<br />");
 	}else{
-		$query = "INSERT INTO Person (name, address, eMail, phone, gender, dateOfBirth)
+		$query = "INSERT INTO ".$dbprefix."Person (name, address, eMail, phone, gender, dateOfBirth)
 VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "')";
 		if(mysqli_query($con,$query)){
-			echo "Person registered.<br />";
+			//echo "Person registered <br />";
 		}else exit("Problem adding person.<br />".mysqli_error($con)."<br />".$query);
 	}
 	
-	$person = mysqli_fetch_array(mysqli_query($con,'SELECT id FROM Person where eMail like "'.$eMail.'"' ));
+	$person = mysqli_fetch_array(mysqli_query($con,'SELECT id FROM '.$dbprefix.'Person where eMail like "'.$eMail.'"' ));
 	$personId = $person['id'];
 	
 	foreach($courses as $course){
@@ -57,27 +58,30 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 		if($courseId<=0){
 			break;
 		}
-		$course = mysqli_fetch_array(mysqli_query($con,'SELECT name from Course where id='.$courseId));
+		$course = mysqli_fetch_array(mysqli_query($con,'SELECT name from '.$dbprefix.'Course where id='.$courseId));
 		
-		$query = "INSERT INTO Registration (personId, courseId, registrationTime, priority, role, partnerName, accepted)
+		$query = "INSERT INTO ".$dbprefix."Registration (personId, courseId, registrationTime, priority, role, partnerName, accepted)
 	VALUES (" . $personId . ", " . $courseId . ", '" . date('Y-m-d H:i:s') . "', " . $priority . ", '" . $role . "', '" . $partnerName . "', " . 'FALSE' . ")";
 		if(!mysqli_query($con, $query)) exit("Error with course registration. ".mysqli_error($con)."<br />".$query."<br />");
 		
 	}
-	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName from Course c, Registration r where c.id=r.courseId and r.personId=' . $personId);
+	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
-		$message = 'Registration received for
+		$message = 'Påmelding mottatt for 
 	';
 		while($row = mysqli_fetch_array($result)) {
 			if(strlen($row['partnerName'])>0){
-				$partnerMessage= " ". $row['partnerName'] . ' as partner';
+				$partnerMessage= " med ". $row['partnerName'] . ' som partner';
 			}else{
-				$partnerMessage = "out partner";
+				$partnerMessage = " uten partner";
 			}
-			$message = $message. '- ' . $row['courseName'] . " as " . $row['role']. " with" .$partnerMessage.'
+			$message = $message. '- ' . $row['courseName'] . " som " . $row['role'].$partnerMessage.'
 	';
 		}
-		echo email($eMail, "Course registration received", $message);
+		echo "Takk for påmeldingen!\n\n";
+		if(email($eMail, "Course registration received", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":<br>";
+		echo $message;
+		
 	}else exit("Could not find course. ".mysqli_error($con)."<br />");
 }
 mysqli_close($con);

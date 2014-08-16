@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$personId=$_POST['personId'];
 	}
 	
-	$personalia=mysqli_fetch_array(mysqli_query($con,"select name, address, eMail, phone, gender, dateOfBirth from Person where id=".$personId));
+	$personalia=mysqli_fetch_array(mysqli_query($con,"select name, address, eMail, phone, gender, dateOfBirth from ".$dbprefix."Person where id=".$personId));
 	
 	if(isset($data->courseId)){
 		echo json_encode($personalia);

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$gender = mysqli_real_escape_string($con, $_POST['gender']);
 	$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateOfBirth']);
 	
-	$query = "update Person set name='".$name."', address='" . $address . "', eMail='" . $eMail . "', phone='" . $phone . "', gender='" . $gender . "', dateOfBirth='" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "'
+	$query = "update ".$dbprefix."Person set name='".$name."', address='" . $address . "', eMail='" . $eMail . "', phone='" . $phone . "', gender='" . $gender . "', dateOfBirth='" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "'
 				where id=".$id;
 	if(mysqli_query($con,$query)){
 		echo "Personalia updated.<br />";

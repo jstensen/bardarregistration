@@ -6,7 +6,7 @@ require_once("../backend/config.php");
 checkLogin();
 if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$con=connectToDb();	
-	$result=mysqli_query($con, 'SELECT id, name, eMail, (select count(*) from Registration where personId=Person.id and accepted=TRUE) as numberOfCourses from Person where id >0 order by id');
+	$result=mysqli_query($con, 'SELECT id, name, eMail, (select count(*) from '.$dbprefix.'Registration where personId=p.id and accepted=TRUE) as numberOfCourses from '.$dbprefix.'Person p where id >0 order by id');
 	if($result){
 		echo '<h1>Manage persons<h2>';
 		echo '<table>';

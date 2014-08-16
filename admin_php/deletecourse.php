@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	}
 	
 	//Deleting course
-	if(mysqli_query($con,"Delete from Course where id=" . $id)){
+	if(mysqli_query($con,"Delete from ".$dbprefix."Course where id=" . $id)){
 		echo "Course deleted<br />";
 	}else exit("Error deleting course: " . mysqli_error($con));
 	

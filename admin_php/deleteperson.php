@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	}else{
 		$id = $_POST['personId'];
 	}
-	if(mysqli_query($con,"Delete from Person where id=" . $id)){
+	if(mysqli_query($con,"Delete from ".$dbprefix."Person where id=" . $id)){
 		echo "Person deleted<br />";
 	}else exit("Error deleting person: " . mysqli_error($con));
 	

@@ -9,7 +9,7 @@ require_once("../config.php");
 $con=connectToDb();
 
 //Get course information
-$result=mysqli_query($con, 'SELECT id, name, capacity, description, maxUnbalance, status, solo from Course order by name');
+$result=mysqli_query($con, 'SELECT id, name, capacity, description, maxUnbalance, status, solo from '.$dbprefix.'Course order by name');
 if($result){
 	$courses=array();
 	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

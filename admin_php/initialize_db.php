@@ -2,17 +2,18 @@
 <body>
 
 <?php
-$con=mysqli_connect("localhost","root");
+require_once('../backend/config.php');
 // Check connection
+$con=connectToSQL();
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
+$databaseName="bardarswingclub2";
+$sql[0]="create database if not exists ".$databaseName;
 
-$sql[0]="create database Registrations";
+$sql[1]="use ".$databaseName;
 
-$sql[1]="use Registrations";
-
-$sql[2]="create table Course(
+$sql[2]="create table if not exists ".$dbprefix."Course(
 	id int not null auto_increment primary key,
 	name varchar(255),
 	capacity int,
@@ -22,7 +23,7 @@ $sql[2]="create table Course(
 	description varchar(999)
 )";
 
-$sql[3]="create table Person(
+$sql[3]="create table if not exists ".$dbprefix."Person(
 	id int not null auto_increment primary key,
 	name varchar(255),
 	address varchar(255),
@@ -32,11 +33,11 @@ $sql[3]="create table Person(
 	dateOfBirth date
 )";
 
-//$sql[4]='insert into Person(id, name, eMail) values(-1, "Nobody", "")';
+//$sql[4]='insert into ".$dbprefix."Person(id, name, eMail) values(-1, "Nobody", "")';
 
-//$sql[5]='insert into Person(id, name, eMail) values(0, "Partner not signed up yet", "")';
+//$sql[5]='insert into ".$dbprefix."Person(id, name, eMail) values(0, "Partner not signed up yet", "")';
 
-$sql[6]="create table Registration(
+$sql[6]="create table if not exists ".$dbprefix."Registration(
 	id int not null auto_increment primary key,
 	personId int not null,
 	courseId int not null,
@@ -46,21 +47,20 @@ $sql[6]="create table Registration(
 	role varchar(7),
 	accepted boolean,
   	FOREIGN KEY (personId) 
-  	REFERENCES Person (id) 
+  	REFERENCES ".$dbprefix."Person (id) 
   	ON DELETE CASCADE,
 	FOREIGN KEY (courseId) 
-  	REFERENCES Course (id) 
+  	REFERENCES ".$dbprefix."Course (id) 
   	ON DELETE CASCADE
 )";
 
-$sql[7]="create table member(
+$sql[7]="create table if not exists ".$dbprefix."Member(
 	id int(4) NOT NULL auto_increment primary key,
 	username varchar(65) NOT NULL default '',
 	password varchar(65) NOT NULL default ''
 )";
 
-$sql[8]="INSERT INTO member VALUES (1, 'sjef1', 'sj3fsp4ss0rd')";
-
+$sql[8]="INSERT INTO ".$dbprefix."Member VALUES (1, 'sjef1', 'sj3fsp4ss0rd')";
 
 
 foreach($sql as $query){

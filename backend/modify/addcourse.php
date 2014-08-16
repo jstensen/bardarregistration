@@ -41,14 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	}
 	
 	if($id==0){//Add new course
-		if(mysqli_query($con,"INSERT INTO Course (name, description, capacity, maxUnbalance, status, solo)
+		if(mysqli_query($con,"INSERT INTO ".$dbprefix."Course (name, description, capacity, maxUnbalance, status, solo)
 		VALUES ('" . $name . "', '" . $description . "', " . $capacity . ", " . $maxUnbalance . ", '" . $status . "', " . $solo . ")")){
 			echo $name . " added to course database.";
 		}else{
 			echo "Error adding " . $name . " to database: " . mysqli_error($con);
 		}
 	}else{ //Edit existing course
-		if(mysqli_query($con,"Update Course
+		if(mysqli_query($con,"Update ".$dbprefix."Course
 		set name='" . $name . "', description='" . $description . "', capacity =" . $capacity . ", maxUnbalance= " . $maxUnbalance . ", status='" . $status . "', solo=" . $solo . "
 		where id=" . $id)){
 			echo $name . " updated.";

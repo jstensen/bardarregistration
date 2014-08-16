@@ -1,5 +1,5 @@
 <?php
-$root = "http://localhost/hello_world/";
+$root = "http://localhost/bardarregistration/";
 
 echo '<a href="'.$root.'admin_php/managecourses.php">Administrer kurs</a>&nbsp&nbsp';
 echo '<a href="'.$root.'admin_php/addcourse_input.php">Legg til nytt kurs</a>&nbsp&nbsp';

@@ -35,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$capacity = $_POST['capacity'];
 		$maxUnbalance = $_POST['maxUnbalance'];
 		$status = mysqli_real_escape_string($con, $_POST['status']);
-		$solo = mysqli_real_escape_string($con, $_POST['solo']);
-		if(mysqli_real_escape_string($con, $_POST['solo'])=="TRUE") $solo = "TRUE"; else $solo="FALSE";
+		//$solo = mysqli_real_escape_string($con, $_POST['solo']);
+		if(isset($_POST['solo']) && mysqli_real_escape_string($con, $_POST['solo'])==1) $solo = 1; else $solo=0;
 		$id = $_POST['courseId'];
 	}
 	
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		}
 	}else{ //Edit existing course
 		if(mysqli_query($con,"Update Course
-		set name='" . $name . "', description='" . $description . "', capacity =" . $capacity . ", maxUnbalance= " . $maxUnbalance . ", status='" . $status . ", solo=" . $solo . "
+		set name='" . $name . "', description='" . $description . "', capacity =" . $capacity . ", maxUnbalance= " . $maxUnbalance . ", status='" . $status . "', solo=" . $solo . "
 		where id=" . $id)){
 			echo $name . " updated.";
 		}else exit("Error updating " . $name . ": " . mysqli_error($con));

@@ -78,8 +78,8 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 			$message = $message. '- ' . $row['courseName'] . " som " . $row['role'].$partnerMessage.'
 	';
 		}
-		echo "Takk for påmeldingen!\n\n"
-		if(email($eMail, "Course registration received", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".eMail.":<br>";
+		echo "Takk for påmeldingen!\n\n";
+		if(email($eMail, "Course registration received", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":<br>";
 		echo $message;
 		
 	}else exit("Could not find course. ".mysqli_error($con)."<br />");

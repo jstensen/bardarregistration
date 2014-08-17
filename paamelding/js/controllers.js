@@ -14,7 +14,7 @@ $scope.fillInPartnerId = [false, false, false];
 
 $scope.maxNumberOfCourses = 3;
 
-var getCoursesUrl = '../../backend/get/getcourses.php';
+var getCoursesUrl = '../backend/get/getcourses.php';
 
 $http.get(getCoursesUrl).success(function(data){
 	$scope.courses = data;
@@ -34,7 +34,7 @@ $scope.registrerParticipant = function(participant) {
 		$scope.participant.courses[i] = $scope.Course[i];
 	}
 
-	var url = "../../backend/modify/register.php";
+	var url = "../backend/modify/register.php";
 
 
 	$http.post(url, participant).

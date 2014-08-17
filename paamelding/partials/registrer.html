@@ -49,10 +49,13 @@
 		<div class="row">
 			<div class="col-xs-4">
 				Kjønn
-				<select class="form-control" id="gender1" ng-model="participant.gender">
+				<select class="form-control" name="gender" id="gender1" ng-model="participant.gender" ng-change="genderOk = form.gender.$valid" required>
+ 					<option value="">Velg</option>
  					<option>Kvinne</option>
 					<option>Mann</option>
-				</select>  				
+				</select>	
+				<span ng-show="genderOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+				<span ng-show="!genderOk && genderOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 			
 			</div>
 		</div>
 		

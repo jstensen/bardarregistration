@@ -88,21 +88,23 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 		if(!mysqli_query($con, $query)) exit("Error with course registration. ".mysqli_error($con)."<br />".$query."<br />");
 		
 	}
-	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
+	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName, c.solo from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
-		$message = 'Påmelding mottatt for 
-	';
+		$message = "Påmelding mottatt for\r\n";
 		while($row = mysqli_fetch_array($result)) {
-			if(strlen($row['partnerName'])>0){
-				$partnerMessage= " med ". $row['partnerName'] . ' som partner';
-			}else{
-				$partnerMessage = " uten partner";
+			$message = $message. '- ' . $row['courseName'];
+			if($row['solo']<>1){
+				if(strlen($row['partnerName'])>0){
+					$partnerMessage= " med ". $row['partnerName'] . ' som partner';
+				}else{
+					$partnerMessage = " uten partner";
+				}
+				$message = $message . " som " . $row['role'].$partnerMessage;
 			}
-			$message = $message. '- ' . $row['courseName'] . " som " . $row['role'].$partnerMessage.'
-	';
+			$message=$message."\r\n\t";
 		}
-		echo "Takk for påmeldingen!\n\n";
-		if(email($eMail, "Kurspåmelding mottatt", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":<br>";
+		echo "Takk for påmeldingen!\r\n";
+		if(email($eMail, "Kurspåmelding mottatt", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":\r\n";
 		echo $message;
 		
 	}else exit("Could not find course. ".mysqli_error($con)."<br />");

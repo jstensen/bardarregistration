@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$priorities = $_POST['priority'];
 		$partners = $_POST['partner'];
 		$registrationIds = $_POST['registrationId'];
-		echo "Det er ikke mulig å endre kurs ennå, men Erik jobber med saken";
+		echo "Det er ikke mulig å endre kurs ennå, men Erik jobber kanskje med saken";
+		//Idé: 
 	}
 }
 mysqli_close($con);

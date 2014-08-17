@@ -90,7 +90,7 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 	}
 	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName, c.solo from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
-		$message = "Påmelding mottatt for\r\n";
+		$message = "Påmelding mottatt for\r\n\t";
 		while($row = mysqli_fetch_array($result)) {
 			$message = $message. '- ' . $row['courseName'];
 			if($row['solo']<>1){

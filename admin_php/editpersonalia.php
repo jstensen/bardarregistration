@@ -37,13 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		
 		
 		echo '<form action="updatepersonalia.php" method="post">';
-		echo 'Name: <input type="text" name="name" value="'.$name.'" required><br>';
-		echo 'E-mail address: <input type="text" name="eMail" value="'.$eMail.'" required><br>';
-		echo 'Address: <input type="text" name="address" value="'.$address.'" required><br>';
-		echo 'Address: <input type="text" name="address" value="'.$address.'" required><br>';
-		echo 'Phone number: <input type="text" name="phone" value="'.$phone.'"><br>';
-		echo 'Gender: <input type="radio" name="gender" value="male"'.$checked['male'].'>Male | <input type="radio" name="gender" value="female"'.$checked['female'].'>Female<br>';
-		echo 'Date of birth: <input type="date" name="dateOfBirth" value="'.$dateOfBirth.'" required><br>';
+		echo 'Name:<br><input type="text" name="name" value="'.$name.'" required><br>';
+		echo 'E-mail address:<br><input type="text" name="email" value="'.$eMail.'" required><br>';
+		echo 'Address:<br><input type="text" name="address" value="'.$address.'" required><br>';
+		echo 'PostalNumber:<br><input type="text" name="postalNumber" value="'.$postalNumber.'" required><br>';
+		echo 'Town:<br><input type="text" name="town" value="'.$town.'" required><br>';
+		echo 'Phone number:<br><input type="text" name="phonenumber" value="'.$phone.'"><br>';
+		echo 'Gender:<br><input type="radio" name="gender" value="male"'.$checked['male'].'>Male | <input type="radio" name="gender" value="female"'.$checked['female'].'>Female<br>';
+		echo 'Date of birth:<br><input type="date" name="dateofbirth" value="'.$dateOfBirth.'" required><br>';
 		echo '<input type="hidden" name="id" value="'.$personId.'">';
 		echo '<input type="submit" value="Update">';
 		echo '</form>';

@@ -16,24 +16,42 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$name = mysqli_real_escape_string($con, $data['name']);
 		$eMail = mysqli_real_escape_string($con, $data['email']);
 		$formerMember = mysqli_real_escape_string($con, $data['isFormerMember']);
-		$address = mysqli_real_escape_string($con, $data['address']);
-		$postalNumber = mysqli_real_escape_string($con, $data['postalNumber']);
-		$town = mysqli_real_escape_string($con, $data['town']);
-		$phone = mysqli_real_escape_string($con, $data['phonenumber']);
-		$gender = mysqli_real_escape_string($con, $data['gender']);
-		$dateOfBirth = mysqli_real_escape_string($con, $data['dateofbirth']);
+		if($formerMember==1){
+			$address = "";
+			$postalNumber = "";
+			$town = "";
+			$phone = "";
+			$gender = "";
+			$dateOfBirth = "";
+		}else{
+			$address = mysqli_real_escape_string($con, $data['address']);
+			$postalNumber = mysqli_real_escape_string($con, $data['postalNumber']);
+			$town = mysqli_real_escape_string($con, $data['town']);
+			$phone = mysqli_real_escape_string($con, $data['phonenumber']);
+			$gender = mysqli_real_escape_string($con, $data['gender']);
+			$dateOfBirth = mysqli_real_escape_string($con, $data['dateofbirth']);
+		}
 		$courses = $data['courses'];
 		
 	}else{
 		$name = mysqli_real_escape_string($con, $_POST['name']);
 		$eMail = mysqli_real_escape_string($con, $_POST['email']);
 		$formerMember = mysqli_real_escape_string($con, $_POST['isFormerMember']);
-		$address = mysqli_real_escape_string($con, $_POST['address']);
-		$postalNumber = mysqli_real_escape_string($con, $_POST['postalNumber']);
-		$town = mysqli_real_escape_string($con, $_POST['town']);
-		$phone = mysqli_real_escape_string($con, $_POST['phonenumber']);
-		$gender = mysqli_real_escape_string($con, $_POST['gender']);
-		$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateofbirth']);
+		if($formerMember==1){
+			$address = "";
+			$postalNumber = "";
+			$town = "";
+			$phone = "";
+			$gender = "";
+			$dateOfBirth = "";
+		}else{
+			$address = mysqli_real_escape_string($con, $_POST['address']);
+			$postalNumber = mysqli_real_escape_string($con, $_POST['postalNumber']);
+			$town = mysqli_real_escape_string($con, $_POST['town']);
+			$phone = mysqli_real_escape_string($con, $_POST['phonenumber']);
+			$gender = mysqli_real_escape_string($con, $_POST['gender']);
+			$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateofbirth']);
+		}
 		$courses = $_POST['courses'];
 	}
 	$existingPerson = mysqli_query($con,'SELECT id FROM '.$dbprefix.'Person where eMail="'.$eMail.'"' );

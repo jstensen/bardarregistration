@@ -16,13 +16,7 @@
 				<span ng-show="!navnOk && navnOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
 			</div>	
 		</div>
-		<div class="row">
-			<div class="col-xs-4">
-				Adresse <input type="text" class="form-control" name="address" ng-model="participant.address" ng-blur="addressOk = form.address.$valid" required> 
-				<span ng-show="addressOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
-				<span ng-show="!addressOk && addressOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
-			</div>
-		</div>
+
 		<div class="row">
 			<div class="col-xs-4">
 				E-post <input type="text" class="form-control" name="email" ng-model="participant.email" ng-blur="emailOk = form.email.$valid"required>
@@ -30,35 +24,67 @@
 				<span ng-show="!emailOk && emailOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
 			</div>
 		</div>
+
+		<br>
 		<div class="row">
 			<div class="col-xs-4">
-				Telefon <input type="text" class="form-control" name="phone" ng-model="participant.phonenumber" ng-blur="phoneOk = form.phone.$valid" required> 
-				<span ng-show="phoneOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
-				<span ng-show="!phoneOk && phoneOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
+				Er du tidligere medlem med samme kontaktinformasjon?
+				Ja <input type="radio" ng-model="participant.isFormerMember" ng-value="true"></input>
+				Nei <input type="radio" ng-model="participant.isFormerMember" ng-value="false"></input>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-xs-4">
-				Fødselsdato <input type="date" class="form-control" name="dateofbirth" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth" ng-blur="dateOk = form.dateofbirth.$valid" required>
-				<span ng-show="dateOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
-				<span ng-show="!dateOk && dateOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
+		<div ng-hide="participant.isFormerMember">
+			<div class="row">
+				<div class="col-xs-4">
+					Adresse <input type="text" class="form-control" name="address" ng-model="participant.address" ng-blur="addressOk = form.address.$valid" ng-required="!participant.isFormerMember"> 
+					<span ng-show="addressOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!addressOk && addressOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
+				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-xs-4">
-				Kjønn
-				<select class="form-control" name="gender" id="gender1" ng-model="participant.gender" ng-change="genderOk = form.gender.$valid" required>
- 					<option value="">Velg</option>
- 					<option>Kvinne</option>
-					<option>Mann</option>
-				</select>	
-				<span ng-show="genderOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
-				<span ng-show="!genderOk && genderOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 			
+			<div class="row">
+				<div class="col-xs-2">
+					Postnummer <input type="text" class="form-control" name="postalNumber" ng-model="participant.postalNumber" ng-blur="postalNumberOk = form.postalNumber.$valid" ng-required="!participant.isFormerMember"> 
+					<span ng-show="postalNumberOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!postalNumberOk && postalNumberOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
+				</div>
+				<div class="col-xs-2">
+					Poststed <input type="text" class="form-control" name="town" ng-model="participant.town" ng-blur="townOk = form.town.$valid" ng-required="!participant.isFormerMember"> 
+					<span ng-show="townOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!townOk && townOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-4">
+					Telefon <input type="text" class="form-control" name="phone" ng-model="participant.phonenumber" ng-blur="phoneOk = form.phone.$valid" ng-required="!participant.isFormerMember"> 
+					<span ng-show="phoneOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!phoneOk && phoneOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-4">
+					Fødselsdato <input type="date" class="form-control" name="dateofbirth" placeholder="dd.mm.yyyy" ng-model="participant.dateofbirth" ng-blur="dateOk = form.dateofbirth.$valid" min="1900-01-01" ng-required="!participant.isFormerMember">
+					<span ng-show="dateOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!dateOk && dateOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-4">
+					Kjønn
+					<select class="form-control" name="gender" id="gender1" ng-model="participant.gender" ng-change="genderOk = form.gender.$valid" ng-required="!participant.isFormerMember">
+	 					<option value="">Velg</option>
+	 					<option>Kvinne</option>
+						<option>Mann</option>
+					</select>	
+					<span ng-show="genderOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!genderOk && genderOk !== undefined" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-remove"></span> 			
+				</div>
 			</div>
 		</div>
-		
 		
 		<br>
 		<br>

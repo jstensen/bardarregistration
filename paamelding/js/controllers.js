@@ -7,7 +7,7 @@ angular.module('myApp.controllers', [])
 
 $scope.showfeedback = false;
 $scope.participant = {}; 
-//$scope.participant.gender = "Kvinne";
+$scope.participant.isFormerMember = false;
 
 $scope.numberOfCourses = 1;
 $scope.fillInPartnerId = [false, false, false];

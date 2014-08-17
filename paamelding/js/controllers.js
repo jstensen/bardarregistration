@@ -32,6 +32,16 @@ $http.get(getCoursesUrl).success(function(data){
 }).error();
 
 
+
+function removeUnnessesaryCourseInformation(chosenCourse) {
+	var tmpChosenCourse = angular.copy(chosenCourse);
+	var courseId = tmpChosenCourse.courseInfo.id;
+
+	delete tmpChosenCourse.courseInfo;
+	tmpChosenCourse.courseId = courseId;
+	return tmpChosenCourse;
+}
+
 $scope.registrerParticipant = function(participant) {
 
 	$scope.participant.courses = [];
@@ -40,14 +50,6 @@ $scope.registrerParticipant = function(participant) {
 		$scope.participant.courses[i] = chosenCourseInfoToBeSent;
 	}
 
-	function removeUnnessesaryCourseInformation(chosenCourse) {
-		var courseId = chosenCourse.courseInfo.id;
-		console.log("courseId: "+courseId);
-
-		delete chosenCourse.courseInfo;
-		chosenCourse.courseId = courseId;
-		return chosenCourse;
-	}
 
 	var url = "../backend/modify/register.php";
 
@@ -64,6 +66,7 @@ $scope.registrerParticipant = function(participant) {
 			$scope.feedback = data;
 			$scope.enFeilHarSkjedd = true;
 	});
+
 };
 
 $scope.updateHasPartner = function(i) {

@@ -14,8 +14,9 @@ $scope.fillInPartnerId = [false, false, false];
 
 $scope.maxNumberOfCourses = 3;
 
-var getCoursesUrl = '../backend/get/getcourses.php';
+$scope.roles = [{english: "Follow", displayText: "Følger"}, {english: "Lead", displayText: "Fører"}];
 
+var getCoursesUrl = '../backend/get/getcourses.php';
 $http.get(getCoursesUrl).success(function(data){
 	$scope.courses = data;
 	

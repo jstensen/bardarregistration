@@ -68,9 +68,7 @@
 			</div>	
 			<div class="col-xs-2">
 				Velg rolle
-				<select class="form-control" ng-model="Course[i].role">
-					<option>Lead</option>
-					<option>Follow</option>
+				<select class="form-control" ng-model="Course[i].role" ng-options="role.english as role.displayText for role in roles">
 				</select>
 			</div>
 			<div class="col-xs-2">

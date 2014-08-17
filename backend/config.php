@@ -1,5 +1,6 @@
 <?php
-$root = "http://localhost/bardarregistration/";
+$root = "http://www.bardarswingclub.no/bardarregistration/";
+//$root = "http://localhost/bardarregistration/";
 
 function addMenu(){
 	global $root;

@@ -1,20 +1,17 @@
 <?php
-// Connect to database
-$con=mysqli_connect("localhost","root","","Registrations");
-// Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error() . "<br />";
-}
+require_once("../backend/config.php");
+//Connect to database
+$con=connectToDb();	
 
 // username and password sent from form 
 $myusername=$_POST['myusername']; 
-$mypassword=$_POST['mypassword']; 
+$mypassword=$_POST['mypassword'];
 
 // To protect MySQL injection (more detail about MySQL injection)
 $myusername = stripslashes($myusername);
 $mypassword = stripslashes($mypassword);
-$myusername = mysql_real_escape_string($myusername);
-$mypassword = mysql_real_escape_string($mypassword);
+$myusername = mysqli_real_escape_string($con,$myusername);
+$mypassword = mysqli_real_escape_string($con,$mypassword);
 $sql="SELECT * FROM ".$dbprefix."Member WHERE username='".$myusername."' and password='".$mypassword."'";
 $result=mysqli_query($con, $sql);
 

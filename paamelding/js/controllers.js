@@ -19,10 +19,14 @@ $scope.roles = [{english: "Follow", displayText: "Følger"}, {english: "Lead", d
 var getCoursesUrl = '../backend/get/getcourses.php';
 $http.get(getCoursesUrl).success(function(data){
 	$scope.courses = data;
-	
-	$scope.Course = [];
-	for (var $j = 0; $j < $scope.maxNumberOfCourses; $j++) { 
-		$scope.Course[$j] = {courseId: $scope.courses[0].id, priority:$j+1, role:"Follow", partnerName:"", hasPartner: false};
+
+	$scope.chosenCourses = [];
+	for (var j = 0; j < $scope.maxNumberOfCourses; j++) { 
+		$scope.chosenCourses[j] = {courseInfo: $scope.courses[0], 
+								   priority:j+1, 
+								   role:"Follow", 
+								   partnerName:"", 
+							  	   hasPartner: false};
 	}
 
 }).error();
@@ -31,8 +35,18 @@ $http.get(getCoursesUrl).success(function(data){
 $scope.registrerParticipant = function(participant) {
 
 	$scope.participant.courses = [];
-	for(var i=0; i<$scope.numberOfCourses; i++){
-		$scope.participant.courses[i] = $scope.Course[i];
+	for(var i=0; i<$scope.numberOfCourses; i++) {
+		var chosenCourseInfoToBeSent = removeUnnessesaryCourseInformation($scope.chosenCourses[i]);
+		$scope.participant.courses[i] = chosenCourseInfoToBeSent;
+	}
+
+	function removeUnnessesaryCourseInformation(chosenCourse) {
+		var courseId = chosenCourse.courseInfo.id;
+		console.log("courseId: "+courseId);
+
+		delete chosenCourse.courseInfo;
+		chosenCourse.courseId = courseId;
+		return chosenCourse;
 	}
 
 	var url = "../backend/modify/register.php";
@@ -50,13 +64,10 @@ $scope.registrerParticipant = function(participant) {
 			$scope.feedback = data;
 			$scope.enFeilHarSkjedd = true;
 	});
-
-
-	//TestService.registrerParticipant($scope.participant);
 };
 
 $scope.updateHasPartner = function(i) {
-	$scope.fillInPartnerId[i] = $scope.Course[i].hasPartner;
+	$scope.fillInPartnerId[i] = $scope.chosenCourses[i].hasPartner;
 };
 
 $scope.updateHasPartnerFirstChoice = function() {

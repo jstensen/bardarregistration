@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	
 	$existingPerson = mysqli_query($con,'SELECT id FROM Person where eMail="'.$eMail.'"' );
 	if(mysqli_num_rows($existingPerson)>0){
-		echo exit("Error: Person with that e-mail address already registered. Contact us to change your registration.<br />");
+		echo exit("Vi har allerede mottatt en påmelding med den e-postadressen. Ta kontakt med oss på bardarswingclub alfakrøll gmail dått com om du trenger hjelp.");
 	}else{
 		$query = "INSERT INTO Person (name, address, eMail, phone, gender, dateOfBirth)
 VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "')";

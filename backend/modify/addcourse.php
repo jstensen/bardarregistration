@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	if($id==0){//Add new course
 		if(mysqli_query($con,"INSERT INTO ".$dbprefix."Course (name, description, capacity, maxUnbalance, status, solo)
 		VALUES ('" . $name . "', '" . $description . "', " . $capacity . ", " . $maxUnbalance . ", '" . $status . "', " . $solo . ")")){
-			echo $name . " added to course database.";
+			echo $name . " lagt til i databasen.";
 		}else{
 			echo "Error adding " . $name . " to database: " . mysqli_error($con);
 		}

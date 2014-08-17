@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	echo 'Capacity:<br><input type="text" name="capacity" value ="' .$capacity.'"><br>';
 	echo 'MaxUnbalance:<br><input type="text" name="maxUnbalance" value ="' .$maxUnbalance.'"><br>';
 	echo 'Status:<br><select name="status"><option value="Open"'.$selected['Open'].'>Open</option><option value="Closed"'.$selected['Closed'].'>Closed</option><option value="Waiting list"'.$selected['Waiting list'].'>Waiting list</option></select><br>';
-	echo 'Solo <input type="checkbox" name="solo" value="TRUE"'.$checked.'><br>';
+	echo 'Solo <input type="checkbox" name="solo" value="1"'.$checked.'><br>';
 	echo '<input type="hidden" name="courseId" value="'.$courseId.'">';
 	echo '<input type="submit">';
 	echo '</form>';

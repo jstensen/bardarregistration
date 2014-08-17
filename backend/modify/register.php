@@ -14,30 +14,35 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$data=json_decode(file_get_contents('php://input'), true);
 	if(true){//isset($data['name'])){
 		$name = mysqli_real_escape_string($con, $data['name']);
-		$address = mysqli_real_escape_string($con, $data['address']);
 		$eMail = mysqli_real_escape_string($con, $data['email']);
+		$formerMember = mysqli_real_escape_string($con, $data['isFormerMember']);
+		$address = mysqli_real_escape_string($con, $data['address']);
+		$postalNumber = mysqli_real_escape_string($con, $data['postalNumber']);
+		$town = mysqli_real_escape_string($con, $data['town']);
 		$phone = mysqli_real_escape_string($con, $data['phonenumber']);
 		$gender = mysqli_real_escape_string($con, $data['gender']);
 		$dateOfBirth = mysqli_real_escape_string($con, $data['dateofbirth']);
 		$courses = $data['courses'];
+		
 	}else{
 		$name = mysqli_real_escape_string($con, $_POST['name']);
+		$eMail = mysqli_real_escape_string($con, $_POST['email']);
+		$formerMember = mysqli_real_escape_string($con, $_POST['isFormerMember']);
 		$address = mysqli_real_escape_string($con, $_POST['address']);
-		$eMail = mysqli_real_escape_string($con, $_POST['eMail']);
-		$phone = mysqli_real_escape_string($con, $_POST['phone']);
-		$gender = gender(mysqli_real_escape_string($con, $_POST['gender']));
-		$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateOfBirth']);
-		$courseIdArray = $_POST['course'];
-		$roleArray = $_POST['role'];
-		$partnerIdArray = $_POST['partnerId'];
+		$postalNumber = mysqli_real_escape_string($con, $_POST['postalNumber']);
+		$town = mysqli_real_escape_string($con, $_POST['town']);
+		$phone = mysqli_real_escape_string($con, $_POST['phonenumber']);
+		$gender = mysqli_real_escape_string($con, $_POST['gender']);
+		$dateOfBirth = mysqli_real_escape_string($con, $_POST['dateofbirth']);
+		$courses = $_POST['courses'];
 	}
 	$existingPerson = mysqli_query($con,'SELECT id FROM '.$dbprefix.'Person where eMail="'.$eMail.'"' );
 	if(mysqli_num_rows($existingPerson)>0){
 		http_response_code(400);
-		exit("Error: Person with that e-mail address already registered. Contact us to change your registration.<br />");
+		exit("Vi har allerede mottatt en påmelding med den e-post-adressa. Ta kontakt på bardarswingclub alfakrøll gmail dått com om du trenger hjelp.");
 	}else{
-		$query = "INSERT INTO ".$dbprefix."Person (name, address, eMail, phone, gender, dateOfBirth)
-VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "')";
+		$query = "INSERT INTO ".$dbprefix."Person (name, address, eMail, phone, gender, dateOfBirth, formerMember, postalNumber, town)
+VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "', ".$formerMember.", '".$postalNumber."', '".$town."')";
 		if(mysqli_query($con,$query)){
 			//echo "Person registered <br />";
 		}else exit("Problem adding person.<br />".mysqli_error($con)."<br />".$query);
@@ -79,7 +84,7 @@ VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "',
 	';
 		}
 		echo "Takk for påmeldingen!\n\n";
-		if(email($eMail, "Course registration received", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":<br>";
+		if(email($eMail, "Kurspåmelding mottatt", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":<br>";
 		echo $message;
 		
 	}else exit("Could not find course. ".mysqli_error($con)."<br />");

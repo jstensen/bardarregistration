@@ -18,16 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$personId=$_POST['personId'];
 	}
 	
-	$personalia=mysqli_fetch_array(mysqli_query($con,"select name, address, eMail, phone, gender, dateOfBirth from ".$dbprefix."Person where id=".$personId));
+	$personalia=mysqli_fetch_array(mysqli_query($con,"select name, eMail, address, postalNumber, town, phone, gender, dateOfBirth from ".$dbprefix."Person where id=".$personId));
 	
 	if(isset($data->courseId)){
 		echo json_encode($personalia);
 	}else{
 		$name = $personalia['name'];
-		$address = $personalia['address'];
 		$eMail = $personalia['eMail'];
+		$address = $personalia['address'];
+		$postalNumber = $personalia['postalNumber'];
+		$town = $personalia['town'];
 		$phone = $personalia['phone'];
-		$gender = 
 		$gender=gender($personalia['gender']);
 			
 		$checked = array_fill_keys(array('male', 'female'), '');
@@ -37,8 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		
 		echo '<form action="updatepersonalia.php" method="post">';
 		echo 'Name: <input type="text" name="name" value="'.$name.'" required><br>';
-		echo 'Address: <input type="text" name="address" value="'.$address.'" required><br>';
 		echo 'E-mail address: <input type="text" name="eMail" value="'.$eMail.'" required><br>';
+		echo 'Address: <input type="text" name="address" value="'.$address.'" required><br>';
+		echo 'Address: <input type="text" name="address" value="'.$address.'" required><br>';
 		echo 'Phone number: <input type="text" name="phone" value="'.$phone.'"><br>';
 		echo 'Gender: <input type="radio" name="gender" value="male"'.$checked['male'].'>Male | <input type="radio" name="gender" value="female"'.$checked['female'].'>Female<br>';
 		echo 'Date of birth: <input type="date" name="dateOfBirth" value="'.$dateOfBirth.'" required><br>';

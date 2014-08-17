@@ -26,6 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	if(mysqli_query($con,$query)){
 		echo "Personalia updated.<br />";
 	}else exit("Problem updating personalia.<br />".mysqli_error($con)."<br />".$query);
+	
+	if($_POST['submit']=="Oppdater personopplysninger og kurs"){
+		$courses = $_POST['course'];
+		$priorities = $_POST['priority'];
+		$partners = $_POST['partner'];
+		$registrationIds = $_POST['registrationId'];
+		echo "Det er ikke mulig å endre kurs ennå, men Erik jobber med saken";
+	}
 }
 mysqli_close($con);
 ?>

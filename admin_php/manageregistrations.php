@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$courseName=$row['name'];
 	$capacity=$row['capacity'];
 	echo '<h1>'.$courseName.' - påmeldinger</h1>';
-	echo 'Gi plass til de som meldte seg på tidlig, ikke har fått plass på andre kurs (0 i kolonne "Andre kurs"), har '.$courseName.' som førstevalg (prioritet 1) og/eller har meldt seg på med partner.<br /><br />';
+	echo 'Gi plass til de som meldte seg på tidlig, ikke har fått plass på andre kurs, har '.$courseName.' som førstevalg (prioritet 1) og/eller har meldt seg på med partner.<br /><br />';
 	
 	
 	echo '<form action="acceptandsendemail.php" method="post">';
@@ -36,15 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 				echo $row[0] ." ". $role . 's på venteliste<br />';
 			}else exit("Error finding registrations: " . mysqli_error($con));
 			
-			$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and role='".$role."' and courseId=" . $id . " and c.id=courseId order by accepted desc, priority, registrationTime");
+			$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName, (select group_concat(c2.name) from ".$dbprefix."Course c2, ".$dbprefix."Registration r2 where c2.id=r2.courseid and r2.personid=p.id and r2.accepted=true) acceptedCourseList from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and role='".$role."' and courseId=" . $id . " and c.id=courseId order by accepted desc, priority, registrationTime");
 			echo "<table>";
-			echo '<tr><th></th><th>Navn</th><th>Prioritet</th><th>Påmeldingstidspunkt</th><th>Andre kurs</th><th>Partner</th>';
+			echo '<tr><th></th><th>Navn</th><th>Prioritet</th><th>Påmeldingstidspunkt</th><th>Fått plass på</th><th>Partner</th>';
 			if($result){
 				while($row = mysqli_fetch_array($result)) {
 					if($row['accepted']) echo '<tr bgcolor="#99FF99">'; else echo '<tr bgcolor="#FFFFCC">';
 					echo '<td>';
 					echo '<input type="checkbox" name="registrationIds[]" value="' . $row['registrationId'] .'">';
-					echo '</td><td>' . $row['personName'] . '</td><td>' . $row['priority'] . '</td><td>' . $row['registrationTime'] . '</td><td>' . $row['accepted'] . '</td><td>' . $row['partnerName'] . '</td>';
+					echo '</td><td>' . $row['personName'] . '</td><td>' . $row['priority'] . '</td><td>' . $row['registrationTime'] . '</td><td>' . $row['acceptedCourseList'] . '</td><td>' . $row['partnerName'] . '</td>';
 					echo '</tr>';
 				}
 			}else exit("Error reading registrations: " . mysqli_error($con));
@@ -56,23 +56,23 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$result=mysqli_query($con,"Select count(*) from ".$dbprefix."Registration where courseId=" . $id . " and accepted=TRUE");
 		if($result){
 			$row = mysqli_fetch_row($result);
-			echo $row[0] .' har fått plass (capacity: '.$capacity.')<br />';
+			echo $row[0] .' har fått plass (kapasitet: '.$capacity.')<br />';
 		}else exit("Error finding registrations: " . mysqli_error($con));
 		$result=mysqli_query($con,"Select count(*) from ".$dbprefix."Registration where courseId=" . $id . " and accepted=FALSE");
 		if($result){
 			$row = mysqli_fetch_row($result);
-			echo $row[0] .' on waiting list<br />';
+			echo $row[0] .' på venteliste<br />';
 		}else exit("Error finding registrations: " . mysqli_error($con));
 		
-		$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId order by accepted desc, priority, registrationTime");
+		$result=mysqli_query($con,"Select p.name personName, registrationTime, priority, accepted, partnerName, r.id registrationId, c.name courseName, (select group_concat(c2.name) from ".$dbprefix."Course c2, ".$dbprefix."Registration r2 where c2.id=r2.courseid and r2.personid=p.id and r2.accepted=true) acceptedCourseList from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId order by accepted desc, priority, registrationTime");
 		echo "<table>";
-		echo '<tr><th></th><th>Navn</th><th>Prioritet</th><th>Påmeldingstidspunkt</th><th>Andre kurs</th><th>Partner</th>';
+		echo '<tr><th></th><th>Navn</th><th>Prioritet</th><th>Påmeldingstidspunkt</th><th>Fått plass på</th><th>Partner</th>';
 		if($result){
 			while($row = mysqli_fetch_array($result)) {
 				if($row['accepted']) echo '<tr bgcolor="#99FF99">'; else echo '<tr bgcolor="#FFFFCC">';
 				echo '<td>';
 				echo '<input type="checkbox" name="registrationIds[]" value="' . $row['registrationId'] .'">';
-				echo '</td><td>' . $row['personName'] . '</td><td>' . $row['priority'] . '</td><td>' . $row['registrationTime'] . '</td><td>' . $row['accepted'] . '</td><td>' . $row['partnerName'] . '</td>';
+				echo '</td><td>' . $row['personName'] . '</td><td>' . $row['priority'] . '</td><td>' . $row['registrationTime'] . '</td><td>' . $row['acceptedCourseList'] . '</td><td>' . $row['partnerName'] . '</td>';
 				echo '</tr>';
 			}
 		}else exit("Error reading registrations: " . mysqli_error($con));

@@ -1,6 +1,7 @@
 <?php
 $root = "http://www.bardarswingclub.no/bardarregistration/";
 //$root = "http://localhost/bardarregistration/";
+$maxNumberOfCourses=3;
 
 function addMenu(){
 	global $root;

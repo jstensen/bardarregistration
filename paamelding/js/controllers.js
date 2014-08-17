@@ -3,16 +3,16 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('Registrer', ['$scope', 'TestService', '$http', function($scope, TestService, $http) {
+  .controller('Registrer', ['$scope', '$http', function($scope, $http) {
 
 $scope.showfeedback = false;
 $scope.participant = {}; 
 $scope.participant.isFormerMember = false;
 
 $scope.numberOfCourses = 1;
-$scope.fillInPartnerId = [false, false, false];
-
 $scope.maxNumberOfCourses = 3;
+
+$scope.fillInPartnerId = [false, false, false];
 
 $scope.roles = [{english: "Follow", displayText: "Følger"}, {english: "Lead", displayText: "Fører"}];
 

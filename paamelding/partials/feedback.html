@@ -1,23 +1,23 @@
-<div style="min-height: 500px;" class="well">
-	<h1>Kurspåmelding</h1>
-
+<div >
 	<div ng-show="!enFeilHarSkjedd" class="row">
-			<div class="col-xs-6 alert alert-info">
+			<div class="col-sm-6 alert alert-info">
 				Takk for din påmelding <b>{{participant.name}}</b>. 
 				<br>
 				<br>
 				Prosessen framover:<br>
-				- Du får beskjed innen en uke om du har kommet inn på kurs. Sjekk eposten din. <br>
-				- Kursoppstart er i uke 37 (8. - 14. september) for de fleste kursene.
+				<ul>
+					<li>Du får beskjed innen en uke om du har kommet inn på kurs. Sjekk eposten din.</li>
+					<li>Kursoppstart er i uke 37 (8. - 14. september) for de fleste kursene.</li>
+				</ul>
 				<br>
 				<br>
 				Bekreftelse på din påmelding er sendt til <b>{{participant.email}}</b>, sjekk spam-filteret ditt hvis du ikke skulle finne igjen eposten.
 			</div>
 	</div>
 	<div class="row alert alert-danger" ng-show="enFeilHarSkjedd">
-			<div class="col-xs-6">
+			<div class="col-sm-6">
 				{{feedback}}
 			</div>
 	</div>
-	<a href="http://www.bardarswingclub.no/">Tilbake til hjemmesiden</a>
+	<!--<a href="http://www.bardarswingclub.no/">Tilbake til hjemmesiden</a>-->
 </div>

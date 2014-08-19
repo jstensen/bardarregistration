@@ -25,7 +25,8 @@ $sql[2]="create table if not exists ".$dbprefix."Course(
 
 $sql[3]="create table if not exists ".$dbprefix."Person(
 	id int not null auto_increment primary key,
-	name varchar(255),
+	firstName varchar(65),
+	surname varchar(65),
 	address varchar(255),
 	postalNumber varchar(10),
 	town varchar(65),

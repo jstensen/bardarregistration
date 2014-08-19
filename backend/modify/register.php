@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$existingPerson = mysqli_query($con,'SELECT id FROM '.$dbprefix.'Person where eMail="'.$eMail.'"' );
 	if(mysqli_num_rows($existingPerson)>0){
 		http_response_code(400);
-		exit("Vi har allerede mottatt en påmelding med den e-post-adressa. Ta kontakt på bardarswingclub alfakrøll gmail dått com om du trenger hjelp.");
+		exit("Vi har allerede mottatt en påmelding med den e-post-adressa.");
 	}else{
 		$query = "INSERT INTO ".$dbprefix."Person (firstName, surname, address, eMail, phone, gender, dateOfBirth, formerMember, postalNumber, town)
 VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "', ".$formerMember.", '".$postalNumber."', '".$town."')";

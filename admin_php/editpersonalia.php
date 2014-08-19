@@ -18,13 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$personId=$_POST['personId'];
 	}
 	
-	$personalia=mysqli_fetch_array(mysqli_query($con,"select name, eMail, address, postalNumber, town, phone, gender, dateOfBirth from ".$dbprefix."Person where id=".$personId));
+	$personalia=mysqli_fetch_array(mysqli_query($con,"select firstName, surname, eMail, address, postalNumber, town, phone, gender, dateOfBirth from ".$dbprefix."Person where id=".$personId));
 	echo '<h1>Edit personalia</h1>';
 	
 	if(isset($data->courseId)){
 		echo json_encode($personalia);
 	}else{
-		$name = $personalia['name'];
+		$firstName = $personalia['firstName'];
+		$surname = $personalia['surname'];
 		$eMail = $personalia['eMail'];
 		$address = $personalia['address'];
 		$postalNumber = $personalia['postalNumber'];
@@ -37,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$dateOfBirth = $personalia['dateOfBirth'];
 
 		echo '<form action="updatepersonalia.php" method="post">';
-		echo 'Navn:<br><input type="text" name="name" value="'.$name.'" required><br>';
+		echo 'Fornavn:<br><input type="text" name="firstname" value="'.$firstName.'" required><br>';
+		echo 'Etternavn:<br><input type="text" name="surname" value="'.$surname.'" required><br>';
 		echo 'E-post-adresse:<br><input type="text" name="email" value="'.$eMail.'" required><br>';
 		echo 'Addresse:<br><input type="text" name="address" value="'.$address.'"><br>';
 		echo 'Postnummer:<br><input type="text" name="postalNumber" value="'.$postalNumber.'" ><br>';

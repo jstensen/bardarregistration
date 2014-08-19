@@ -1,7 +1,7 @@
-<div style="margin-left:20px;">
+<div>
 	<div ng-show="!enFeilHarSkjedd" class="row">
 			<div class="col-sm-6">
-				Takk for din påmelding <b>{{participant.name}}</b>. 
+				Takk for din påmelding <b>{{participant.firstname}}</b> <b>{{participant.surname}}</b>. ÆÆÆÆÆ
 				<br>
 				<br>
 				Prosessen framover:<br>
@@ -15,7 +15,8 @@
 	</div>
 	<div class="row" ng-show="enFeilHarSkjedd">
 			<div class="col-sm-6">
-				Noe gikk desverre galt. Ta kontakt med bardarswingclub(alfakrøll)gmail(dått)com.
+				Noe gikk desverre galt. Ta kontakt med bardarswingclub(alfakrøll)gmail(dått)com. <br>
+				Feilmelding: {{feedback}}
 			</div>
 	</div>
 </div>

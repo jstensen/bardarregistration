@@ -1,13 +1,19 @@
 <div ng-show="showfeedback" ng-include src="'partials/feedback.html'"></div>
-<div ng-show="!showfeedback" style="margin-left:20px;">
+<div ng-show="!showfeedback">
 	<form name="form">
 		<div class="row">
-			<div class="col-sm-6">
-					Navn <input type="text" class="form-control" name="name" ng-model="participant.name" required ng-blur="navnOk = form.name.$valid">
+			<div class="col-sm-3">
+					Fornavn <input type="text" class="form-control" name="firstname" ng-model="participant.firstname" required ng-blur="fornavnOk = form.firstname.$valid">
 
-					<span ng-show="navnOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
-					<span ng-show="!navnOk && navnOk !== undefined" style="position: absolute;right: -6px;top: 30px;" class="glyphicon glyphicon-asterisk"></span>				
-			</div>	
+					<span ng-show="fornavnOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!fornavnOk && fornavnOk !== undefined" style="position: absolute;right: -6px;top: 30px;" class="glyphicon glyphicon-asterisk"></span>				
+			</div>
+			<div class="col-sm-3">
+					Etternavn <input type="text" class="form-control" name="surname" ng-model="participant.surname" required ng-blur="etternavnOk = form.surname.$valid">
+
+					<span ng-show="etternavnOk" style="position: absolute;right: -6px;top: 30px;"class="glyphicon glyphicon-ok"></span>
+					<span ng-show="!etternavnOk && etternavnOk !== undefined" style="position: absolute;right: -6px;top: 30px;" class="glyphicon glyphicon-asterisk"></span>				
+			</div>		
 		</div>
 
 		<div class="row">
@@ -21,7 +27,7 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-6">
-				Var du medlem i fjor og har samme kontaktinformasjon? <br>
+				Har du betalt medlemskap for i år og er kontaktinformasjonen din uendret? <br>
 				Ja <input type="radio" ng-model="participant.isFormerMember" ng-value="true"></input>
 				Nei <input type="radio" ng-model="participant.isFormerMember" ng-value="false"></input>
 			</div>

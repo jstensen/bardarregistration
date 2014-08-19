@@ -1,7 +1,7 @@
 <?php
 /// Get information about all courses
 /// Inputs: no
-/// Results: int id, string name, string description, int capacity, int maxUnbalance, status
+/// Results: int id, string firstName, surname, string description, int capacity, int maxUnbalance, status
 require_once("../config.php");
 //checkLogin();
 
@@ -12,8 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	echo "Missing data";
 }else{
 	$data=json_decode(file_get_contents('php://input'), true);
-	if(true){//isset($data['name'])){
-		$name = mysqli_real_escape_string($con, $data['name']);
+	if(true){//isset($data['firstname'])){
+		$firstName = mysqli_real_escape_string($con, $data['surname']);
+		$surname = mysqli_real_escape_string($con, $data['firstname']);
 		$eMail = mysqli_real_escape_string($con, $data['email']);
 		$formerMember = mysqli_real_escape_string($con, $data['isFormerMember']);
 		if($formerMember==1){
@@ -34,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		$courses = $data['courses'];
 		
 	}else{
-		$name = mysqli_real_escape_string($con, $_POST['name']);
+		$firstName = mysqli_real_escape_string($con, $_POST['firstname']);
+		$surname = mysqli_real_escape_string($con, $_POST['surname']);
 		$eMail = mysqli_real_escape_string($con, $_POST['email']);
 		$formerMember = mysqli_real_escape_string($con, $_POST['isFormerMember']);
 		if($formerMember==1){
@@ -59,8 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		http_response_code(400);
 		exit("Vi har allerede mottatt en påmelding med den e-post-adressa. Ta kontakt på bardarswingclub alfakrøll gmail dått com om du trenger hjelp.");
 	}else{
-		$query = "INSERT INTO ".$dbprefix."Person (name, address, eMail, phone, gender, dateOfBirth, formerMember, postalNumber, town)
-VALUES ('" . $name . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "', ".$formerMember.", '".$postalNumber."', '".$town."')";
+		$query = "INSERT INTO ".$dbprefix."Person (firstName, surname, address, eMail, phone, gender, dateOfBirth, formerMember, postalNumber, town)
+VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMail . "', '" . $phone . "', '" . $gender . "', '" . date("Y-m-d H:i:s",strtotime($dateOfBirth)) . "', ".$formerMember.", '".$postalNumber."', '".$town."')";
 		if(mysqli_query($con,$query)){
 			//echo "Person registered <br />";
 		}else exit("Problem adding person.<br />".mysqli_error($con)."<br />".$query);

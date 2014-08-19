@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 }else{
 	$data=json_decode(file_get_contents('php://input'), true);
 	if(true){//isset($data['firstname'])){
-		$firstName = mysqli_real_escape_string($con, $data['surname']);
-		$surname = mysqli_real_escape_string($con, $data['firstname']);
+		$firstName = mysqli_real_escape_string($con, $data['firstname']);
+		$surname = mysqli_real_escape_string($con, $data['surname']);
 		$eMail = mysqli_real_escape_string($con, $data['email']);
 		$formerMember = mysqli_real_escape_string($con, $data['isFormerMember']);
 		if($formerMember==1){

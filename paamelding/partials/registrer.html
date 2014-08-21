@@ -1,5 +1,8 @@
 <div ng-show="showfeedback" ng-include src="'partials/feedback.html'"></div>
-<div ng-show="!showfeedback">
+<div ng-show="!registrationIsOpen" class="col-sm-6">
+	<h3>Påmeldingen åpner søndag 24. august klokken 20:00</h3>
+</div>
+<div ng-show="!showfeedback && registrationIsOpen">
 	<form name="form">
 		<div class="row">
 			<div class="col-sm-3">
@@ -92,28 +95,28 @@
 		
 		<div class="row" ng-repeat="i in [0,1,2,3,4]" ng-hide="numberOfCourses<i+1">
 			
-			<div class="col-sm-3">
+			<div class="col-sm-2">
 				Velg kurs ({{i+1}}. prioritet)
 				<select class="form-control" ng-model="chosenCourses[i].courseInfo" ng-options="course.name for course in courses"></select>
 			</div>	
-			<div class="col-sm-3" ng-hide="chosenCourses[i].courseInfo.solo == '1'">
+			<div class="col-sm-2" ng-hide="chosenCourses[i].courseInfo.solo == '1'">
 				Velg rolle
 				<select class="form-control" ng-model="chosenCourses[i].role" ng-options="role.english as role.displayText for role in roles"></select>
 			</div>
 			{{role}}
-			<div class="col-sm-3" ng-hide="chosenCourses[i].courseInfo.solo == '1'">
+			<div class="col-sm-2" ng-hide="chosenCourses[i].courseInfo.solo == '1'">
 				Registrere med partner? <br>
 				Ja <input type="radio" ng-model="chosenCourses[i].hasPartner" ng-value="true" ng-change="updateHasPartner(i)"></input>
 				Nei <input type="radio" ng-model="chosenCourses[i].hasPartner" ng-value="false" ng-change="updateHasPartner(i)"></input>
 			</div>
-			<div class="col-sm-3" ng-show="fillInPartnerId[i]">
+			<div class="col-sm-2" ng-show="fillInPartnerId[i]">
 				Fyll inn navn på partner <br>
 				<input type="text" class="form-control" ng-model="chosenCourses[i].partnerName"></input>
 			</div>
 		</div>
 		<br>
 		<div class="row" ng-hide="numberOfCourses==maxNumberOfCourses">
-			<div class="col-sm-3">
+			<div class="col-sm-2">
 				Legg til flere kurs
 				<button class="btn btn-success btn-xs" ng-click="addOneMoreCourse()">
 					<i class="glyphicon glyphicon-plus"></i>
@@ -121,7 +124,7 @@
 			</div>
 		</div>
 		<div class="row" ng-hide="numberOfCourses==1">
-			<div class="col-sm-3">
+			<div class="col-sm-2">
 				Fjern kurs nummer {{numberOfCourses}}
 				<button class="btn btn-danger btn-xs" ng-click="removeOneCourse()">
 					<i class="glyphicon glyphicon-minus"></i>

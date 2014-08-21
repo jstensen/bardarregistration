@@ -5,6 +5,16 @@
 angular.module('myApp.controllers', [])
   .controller('Registrer', ['$scope', '$http', function($scope, $http) {
 
+$scope.registrationIsOpen = false;
+var registrationIsOpenUrl = '../backend/get/registrationisopen.php';
+$http.get(registrationIsOpenUrl).success(function(data) {
+	$scope.registrationIsOpen = JSON.parse(data);
+}).error(function(data) {
+	$scope.showfeedback = true;
+	$scope.enFeilHarSkjedd = true;
+});
+
+
 $scope.showfeedback = false;
 $scope.participant = {}; 
 $scope.participant.isFormerMember = false;

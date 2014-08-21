@@ -8,7 +8,7 @@ function addMenu(){
 	echo '<a href="'.$root.'admin_php/managecourses.php">Administrer kurs</a>&nbsp&nbsp';
 	echo '<a href="'.$root.'admin_php/addcourse_input.php">Legg til nytt kurs</a>&nbsp&nbsp';
 	echo '<a href="'.$root.'admin_php/managepersons.php">Administrer personer</a>&nbsp&nbsp';
-	echo '<a href="'.$root.'angular-seed/app/#/registrer">Påmeldingsskjema</a>&nbsp&nbsp';
+	echo '<a href="'.$root.'paamelding/">Påmeldingsskjema</a>&nbsp&nbsp';
 	echo '<a href="'.$root.'admin_php/logout.php">Logg ut</a>';
 	echo '<br />';
 	return true;

@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		while($row = mysqli_fetch_array($result)) {
 			echo '<tr>';
 			echo '<td>'.$row['name'].'</td>';
-			echo '<td><form action="manageregistrations.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Manage registrations" /></form></td>';
-			echo '<td>'.'<form action="managecourses.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Edit course information" /></form></td>';
-			echo '<td>'.'<form action="deletecourse.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Delete" /></form></td>';
+			echo '<td><form action="manageregistrations.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Administrer påmeldinger" /></form></td>';
+			echo '<td>'.'<form action="managecourses.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Endre kursinformasjon" /></form></td>';
+			echo '<td>'.'<form action="deletecourse.php" method="post"><input type="hidden" name="courseId" value="'.$row['id'].'" /><input type="submit" value="Slett" /></form></td>';
 			echo '</tr>';
 		}
 		echo '</table>';

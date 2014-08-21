@@ -92,7 +92,7 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 	}
 	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName, c.solo from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
-		$message = "Påmelding mottatt for\r\n\t";
+		$message = "Hei, ".$firstName." ".$surname."\r\n\r\nVi har registrert påmeldingen din for\r\n\t";
 		while($row = mysqli_fetch_array($result)) {
 			$message = $message. '- ' . $row['courseName'];
 			if($row['solo']<>1){
@@ -105,6 +105,7 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 			}
 			$message=$message."\r\n\t";
 		}
+		$message=$message."\r\nDu har ikke fått plass på kurs ennå. Du får snart (senest om ei uke) beskjed om du får plass eller blir satt på venteliste.\r\n\r\nMed vennlig hilsen\r\nBårdar swing club"
 		echo "Takk for påmeldingen!\r\n";
 		if(email($eMail, "Kurspåmelding mottatt", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":\r\n";
 		echo $message;

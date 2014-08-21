@@ -84,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	
 	echo '<input type="submit" name="submit" value ="Gi plass og send e-post"><br />';
 	echo 'E-post-melding (Gi plass):<br />';
-	echo '<textarea name="message" cols=50 rows=3>Hei *navn*, du har fått plass på '.$courseName.' som *rolle*.</textarea><br />';
-	echo '*navn* and *rolle* will be replaced with the actual name and roles<br /><br />';
+	echo '<textarea name="message" cols=50 rows=3>Hei *navn*, du har fått plass på '.$courseName.' som *rolle*. Les mer om tid, sted og praktiske tips på www.bardarswingclub.com/kurs. Vi sender deg faktura på e-post, men det kan ta noen dager.</textarea><br />';
+	echo '*navn* and *rolle* blir automatisk byttet ut med faktisk navn og rolle<br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Slett og send e-post"><input type="submit" name="submit" value ="Slett"><br />';
 	echo 'E-post-melding (Slett):<br />';
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	mysqli_close($con);
 }
 
-echo '<a href="managecourses.php">Manage courses</a>';
+echo '<a href="managecourses.php">Administrer kurs</a>';
 ?>
 </body>
 </html>

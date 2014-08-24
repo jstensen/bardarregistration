@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 			mysqli_query($con,"update ".$dbprefix."Registration set accepted=TRUE where id=".$registrationId);
 			$row=mysqli_fetch_array(mysqli_query($con,"Select firstName, surname, eMail, role, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId and r.id=".$registrationId));
 			$receiver=$row['eMail'];
-			$adaptedmessage = str_replace(array('*navn*','*rolle*'),array($row['firstname'],$row['role']),$message);
+			$adaptedmessage = str_replace(array('*navn*','*rolle*'),array($row['firstName'],$row['role']),$message);
 			email($receiver,"Du har fått plass på kurs!",$adaptedmessage);
 			echo "E-post send til ".$receiver.':<br />'.$adaptedmessage.'<br />';
 		}

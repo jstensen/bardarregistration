@@ -105,7 +105,7 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 			}
 			$message=$message."\r\n\t";
 		}
-		$message=$message."\r\nDu har ikke fått plass på kurs ennå. Du får snart (senest om ei uke) beskjed om du får plass eller blir satt på venteliste.\r\n\r\nMed vennlig hilsen\r\nBårdar swing club"
+		$message=$message."\r\nDu har ikke fått plass på kurs ennå. Du får snart (senest om ei uke) beskjed om du får plass eller blir satt på venteliste.\r\n\r\nMed vennlig hilsen\r\nBårdar swing club";
 		echo "Takk for påmeldingen!\r\n";
 		if(email($eMail, "Kurspåmelding mottatt", $message)) echo "Vi har sendt deg bekrefteses-e-post på ".$eMail.":\r\n";
 		echo $message;

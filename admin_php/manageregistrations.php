@@ -84,16 +84,22 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	
 	echo '<input type="submit" name="submit" value ="Gi plass og send e-post"><br />';
 	echo 'E-post-melding (Gi plass):<br />';
-	echo '<textarea name="message" cols=50 rows=3>Hei *navn*, du har fått plass på '.$courseName.' som *rolle*. Les mer om tid, sted og praktiske tips på www.bardarswingclub.com/kurs. Vi sender deg faktura på e-post, men det kan ta noen dager.</textarea><br />';
+	echo '<textarea name="message" cols=50 rows=3>Hei *navn*, du har fått plass på '.$courseName;
+	if($row['solo']!=1) echo ' som *rolle*';
+	echo '. Les mer om tid, sted og praktiske tips på www.bardarswingclub.com/kurs. Vi sender deg faktura på e-post, men det kan ta noen dager.</textarea><br />';
 	echo '*navn* and *rolle* blir automatisk byttet ut med faktisk navn og rolle<br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Slett og send e-post"><input type="submit" name="submit" value ="Slett"><br />';
 	echo 'E-post-melding (Slett):<br />';
-	echo '<textarea name="deletemessage" cols=50 rows=3>Hei *navn*, din påmelding til '.$courseName.' som *rolle* er slettet.</textarea><br /><br />';
+	echo '<textarea name="deletemessage" cols=50 rows=3>Hei *navn*, din påmelding til '.$courseName;
+	if($row['solo']!=1) echo ' som *rolle*';
+	echo ' er slettet.</textarea><br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Frata plass og send e-post"><input type="submit" name="submit" value ="Frata plass"><br />';
 	echo 'E-post-melding (Frata):<br />';
-	echo '<textarea name="removemessage" cols=50 rows=3>Hei *navn*, du har ikke lenger plass på '.$courseName.' som *rolle*.</textarea><br /><br />';
+	echo '<textarea name="removemessage" cols=50 rows=3>Hei *navn*, du har ikke lenger plass på '.$courseName;
+	if($row['solo']!=1) echo ' som *rolle*';
+	echo '.</textarea><br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Send e-post"><br />';
 	echo 'Tittel: <input type="text" name="title" value ="Du er på venteliste for '.$courseName.'">&nbsp&nbspE-post-melding:<br />';

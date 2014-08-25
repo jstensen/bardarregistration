@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	$con=connectToDb();
 	$id = $_POST['courseId'];
 	$row=mysqli_fetch_array(mysqli_query($con,"Select name, capacity, solo from ".$dbprefix."Course where id=" . $id));
+	$solo=$row['solo'];
 	$courseName=$row['name'];
 	$capacity=$row['capacity'];
 	echo '<h1>'.$courseName.' - påmeldinger</h1>';
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	
 	echo '<form action="acceptandsendemail.php" method="post">';
 	echo "<table><tr>";
-	if($row['solo']!=1){
+	if($solo!=1){
 		foreach(array('lead','follow') as $role){
 			echo '<td valign="top">';
 			$result=mysqli_query($con,"Select count(*) from ".$dbprefix."Registration where role='".$role."' and courseId=" . $id . " and accepted=TRUE");
@@ -85,25 +86,25 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 	echo '<input type="submit" name="submit" value ="Gi plass og send e-post"><br />';
 	echo 'E-post-melding (Gi plass):<br />';
 	echo '<textarea name="message" cols=50 rows=3>Hei *navn*, du har fått plass på '.$courseName;
-	if($row['solo']!=1) echo ' som *rolle*';
-	echo '. Les mer om tid, sted og praktiske tips på www.bardarswingclub.com/kurs. Vi sender deg faktura på e-post, men det kan ta noen dager.</textarea><br />';
+	if($solo!=1) echo ' som *rolle*';
+	echo ". Les mer om tid, sted og praktiske tips på www.bardarswingclub.com/kurs. Vi sender deg faktura på e-post, men det kan ta noen dager.\r\n\r\nSi ifra snarest om du vil melde deg av, så noen andre kan få plassen din!</textarea><br />";
 	echo '*navn* and *rolle* blir automatisk byttet ut med faktisk navn og rolle<br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Slett og send e-post"><input type="submit" name="submit" value ="Slett"><br />';
 	echo 'E-post-melding (Slett):<br />';
 	echo '<textarea name="deletemessage" cols=50 rows=3>Hei *navn*, din påmelding til '.$courseName;
-	if($row['solo']!=1) echo ' som *rolle*';
+	if($solo!=1) echo ' som *rolle*';
 	echo ' er slettet.</textarea><br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Frata plass og send e-post"><input type="submit" name="submit" value ="Frata plass"><br />';
 	echo 'E-post-melding (Frata):<br />';
 	echo '<textarea name="removemessage" cols=50 rows=3>Hei *navn*, du har ikke lenger plass på '.$courseName;
-	if($row['solo']!=1) echo ' som *rolle*';
+	if($solo!=1) echo ' som *rolle*';
 	echo '.</textarea><br /><br />';
 	
 	echo '<input type="submit" name="submit" value ="Send e-post"><br />';
-	echo 'Tittel: <input type="text" name="title" value ="Du er på venteliste for '.$courseName.'">&nbsp&nbspE-post-melding:<br />';
-	echo '<textarea name="removemessage" cols=50 rows=3>Hei *navn*, du er fortsatt på venteliste til '.$courseName.' som *rolle*.</textarea><br /><br />';
+	echo 'Tittel: <input type="text" name="waitinglisttitle" value ="Du er på venteliste for '.$courseName.'">&nbsp&nbspE-post-melding:<br />';
+	echo '<textarea name="waitinglistmessage" cols=50 rows=3>Hei *navn*, du er fortsatt på venteliste til '.$courseName.' som *rolle*.</textarea><br /><br />';
 	mysqli_close($con);
 }
 

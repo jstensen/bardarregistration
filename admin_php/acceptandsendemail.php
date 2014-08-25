@@ -37,12 +37,20 @@ if ($_SERVER["REQUEST_METHOD"] <> "POST"){
 		echo "Status endret<br />";
 		if($action=="Frata plass og send e-post"){
 			foreach($registrationIds as $registrationId){
-				$row=mysqli_fetch_array(mysqli_query($con,"Select firstName, surName, eMail, role, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId and r.id=".$registrationId));
+				$row=mysqli_fetch_array(mysqli_query($con,"Select firstName, surname, eMail, role, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId and r.id=".$registrationId));
 				$receiver=$row['eMail'];
 				$adaptedmessage = str_replace(array('*navn*','*rolle*'),array($row['firstName'],$row['role']),$_POST['removemessage']);
 				email($receiver,"Du har mistet plassen på et kurs",$adaptedmessage);
 				echo "E-post sendt til ".$receiver.':<br />'.$adaptedmessage.'<br />';
 			}
+		}
+	}elseif($action=="Send e-post"){
+		foreach($registrationIds as $registrationId){
+			$row=mysqli_fetch_array(mysqli_query($con,"Select firstName, surname, eMail, role, c.name courseName from ".$dbprefix."Registration r, ".$dbprefix."Person p, ".$dbprefix."Course c where personId=p.id and courseId=" . $id . " and c.id=courseId and r.id=".$registrationId));
+			$receiver=$row['eMail'];
+			$adaptedmessage = str_replace(array('*navn*','*rolle*'),array($row['firstName'],$row['role']),$_POST['waitinglistmessage']);
+			email($receiver,$_POST['waitinglisttitle'],$adaptedmessage);
+			echo "E-post sendt til ".$receiver.':<br />'.$adaptedmessage.'<br />';
 		}
 	}else{	
 		//Read POST data, either from js/json or from normal PHP

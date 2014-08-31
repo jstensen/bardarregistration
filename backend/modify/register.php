@@ -103,7 +103,7 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 		if(!mysqli_query($con, $query)) exit("Error with course registration. ".mysqli_error($con)."<br />".$query."<br />");
 		
 	}
-	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName, c.solo from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.accepted<>1 and r.personId=' . $personId);
+	$result=mysqli_query($con, 'SELECT c.name courseName, r.role, partnerName, c.solo, accepted from '.$dbprefix.'Course c, '.$dbprefix.'Registration r where c.id=r.courseId and r.personId=' . $personId);
 	if($result){
 		$message = "Hei, ".$firstName." ".$surname."\r\n\r\nVi har registrert påmeldingen din for\r\n\t";
 		while($row = mysqli_fetch_array($result)) {
@@ -114,6 +114,9 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 				}else{
 					$partnerMessage = " uten partner";
 				}
+				if($row('accepted')==1){
+					$message = $message . " (fått plass)";
+				}else $message = $message . " (ikke fått plass ennå)";
 				$message = $message . " som " . $row['role'].$partnerMessage;
 			}
 			$message=$message."\r\n\t";

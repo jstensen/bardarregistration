@@ -114,7 +114,7 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 				}else{
 					$partnerMessage = " uten partner";
 				}
-				if($row('accepted')==1){
+				if($row['accepted']==1){
 					$message = $message . " (fått plass)";
 				}else $message = $message . " (ikke fått plass ennå)";
 				$message = $message . " som " . $row['role'].$partnerMessage;

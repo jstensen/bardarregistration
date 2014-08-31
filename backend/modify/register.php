@@ -108,15 +108,15 @@ VALUES ('" . $firstName . "', '" . $surname . "', '" . $address . "', '" . $eMai
 		$message = "Hei, ".$firstName." ".$surname."\r\n\r\nVi har registrert påmeldingen din for\r\n\t";
 		while($row = mysqli_fetch_array($result)) {
 			$message = $message. '- ' . $row['courseName'];
+			if($row['accepted']==1){
+					$message = $message . " (fått plass)";
+			}else $message = $message . " (ikke fått plass ennå)";
 			if($row['solo']<>1){
 				if(strlen($row['partnerName'])>0){
 					$partnerMessage= " med ". $row['partnerName'] . ' som partner';
 				}else{
 					$partnerMessage = " uten partner";
 				}
-				if($row['accepted']==1){
-					$message = $message . " (fått plass)";
-				}else $message = $message . " (ikke fått plass ennå)";
 				$message = $message . " som " . $row['role'].$partnerMessage;
 			}
 			$message=$message."\r\n\t";
